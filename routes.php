@@ -26,5 +26,8 @@ return [
   },
   '/payment' => function (array $params = []) {
     require 'controllers/payment.ctr.php';
+  },
+  '/logout' => function (array $params = []) {
+    require 'controllers/logout.ctr.php';
   }
 ];

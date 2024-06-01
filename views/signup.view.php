@@ -21,5 +21,7 @@
       <button>SUBMIT</button>
     </form>
   </div>
+
+<a href="/login">LOGIN</a>
 </body>
 </html>

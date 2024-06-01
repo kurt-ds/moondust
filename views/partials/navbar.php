@@ -9,3 +9,6 @@
 <body>
     <h1>Welcome, <?php echo ucfirst($_SESSION['user_username'] ?? "GUEST"); ?>  </h1>
     <nav><?php echo $heading ?></nav>
+    <?php if (isLoggedIn()) { ?>
+        <a href="/logout">LOGOUT</a>
+    <?php } ?>
