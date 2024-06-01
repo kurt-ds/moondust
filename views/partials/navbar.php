@@ -7,4 +7,5 @@
     <link rel="stylesheet" href="/styles/reset.css?v=<?php echo time(); ?>" type="text/css">
 </head>
 <body>
+    <h1>Welcome, <?php echo ucfirst($_SESSION['user_username'] ?? "GUEST"); ?>  </h1>
     <nav><?php echo $heading ?></nav>

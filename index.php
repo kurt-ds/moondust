@@ -2,6 +2,7 @@
 
 
 include_once 'functions.php';
+require_once 'includes/config_session.inc.php';
 
 $routes = include_once 'routes.php';
 
