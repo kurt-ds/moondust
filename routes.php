@@ -29,5 +29,8 @@ return [
   },
   '/logout' => function (array $params = []) {
     require 'controllers/logout.ctr.php';
+  },
+  '/new' => function (array $params = []) {
+    require 'controllers/new.ctr.php';
   }
 ];

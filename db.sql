@@ -11,3 +11,16 @@ CREATE TABLE user (
     address VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE product (
+	product_id INT PRIMARY KEY AUTO_INCREMENT,
+    product_name VARCHAR(100) NOT NULL,
+    unit_price DECIMAL(8,2) NOT NULL,
+    product_desc TEXT NOT NULL,
+    image_url VARCHAR(255) NOT NULL,
+);
+
+CREATE TABLE variation (
+	product_id INT NOT NULL,
+    color_name VARCHAR(35) NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES product(product_id)
+);

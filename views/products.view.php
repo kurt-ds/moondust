@@ -5,12 +5,16 @@
 <a href="/admin">ADMIN</a>
 <br>
 <a href="/cart">CART</a>
+<br>
 
 <ul>
-  <li><a href="/products/1">PRODUCT 1</a></li>
-  <li><a href="/products/2">PRODUCT 2</a></li>
-  <li><a href="/products/3">PRODUCT 3</a></li>
-  <li><a href="/products/4">PRODUCT 4</a></li>
+  <?php forEach ($products as $product) { ?>
+    <a href="/products/<?php echo htmlspecialchars($product["product_id"]); ?>">
+    <img  style="width:300px;height:300px;" src="/<?php echo htmlspecialchars($product["image_url"]); ?>" alt="book thumbnail image">
+    <h3>Product Name: " <?php echo htmlspecialchars($product["product_name"]); ?></h3>
+    <h4>Unit Price: " <?php echo  htmlspecialchars($product["unit_price"]); ?></h4> 
+    </a>
+  <?php } ?>
 </ul>
 
 
