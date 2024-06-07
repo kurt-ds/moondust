@@ -8,7 +8,7 @@
         <br>
         <textarea name="product_desc" id=" product_desc" cols="30" rows="10" placeholder=" Product Description: "></textarea>
         <br>
-        <input type="file" name='file' id='file'>
+        <input type="file" name='files[]' id='file' multiple>
         <br>
         <button type="submit" >Submit</button>
 </form>        

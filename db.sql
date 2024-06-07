@@ -13,7 +13,7 @@ CREATE TABLE user (
 
 CREATE TABLE product (
 	product_id INT PRIMARY KEY AUTO_INCREMENT,
-    product_name VARCHAR(100) NOT NULL,
+    product_name VARCHAR(100) UNIQUE NOT NULL,
     unit_price DECIMAL(8,2) NOT NULL,
     product_desc TEXT NOT NULL
 );

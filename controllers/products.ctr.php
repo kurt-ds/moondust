@@ -24,82 +24,102 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     die("Query failed: " . $e->GetMessage());
 }
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $errors = [];
-  //Managing the image
-  $image_url = '';
-  $file = $_FILES['file'];
-  $fileName = $_FILES['file']['name'];
-  $fileTmpName = $_FILES['file']['tmp_name'];
-  $fileSize = $_FILES['file']['size'];
-  $fileError = $_FILES['file']['error'];
-  $fileType = $_FILES['file']['type'];
+    $errors = [];
 
-  $fileExt = explode('.', $fileName);
-  $fileActualExt = strtolower(end($fileExt));
-  $allowed = array('jpg', 'png', 'jpeg');
+    $image_urls = [];
 
-  if (in_array($fileActualExt, $allowed)) {
-      if($fileError === 0) {
-          if ($fileSize < 10000000) {
-              $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-              $fileDestination = 'uploads/' . $fileNameNew;
-              $image_url = $fileDestination;
-              move_uploaded_file($fileTmpName, $fileDestination);
-          } else {
-              $errors['file_too_big'] = 'File is too big!';
-          }   
-      } else {
-          $errors['unexpected_error'] = 'There was a problem in uploading the file!';
-      }
-  } else {
-      $errors['invalid_file_type'] = 'Invalid File Type!';
-  }
+    $files = $_FILES['files'];
+
+    $folder = "uploads/";
+    $names = $files['name'];
+    $tmp_names = $files['tmp_name'];
+    $sizes = $files['size'];
+    $fileErrors = $files['error'];
+    $types = $files['type'];
+
+    if ($_FILES['files']['name'][0] == "") {
+        $errors['no_image'] = "Please upload an image!";
+    }
+
+    for ($i = 0; $i < count($names); $i++) {
+        $fileName = $names[$i];
+        $fileTmpName = $tmp_names[$i];
+        $fileSize = $sizes[$i];
+        $fileError = $fileErrors[$i];
+        $fileType = $types[$i];
+
+        $fileExt = explode('.', $fileName);
+        $fileActualExt = strtolower(end($fileExt));
+        $allowed = array('jpg', 'png', 'jpeg');
+
+        if (in_array($fileActualExt, $allowed)) {
+            if($fileError === 0) {
+                if ($fileSize < 10000000) {
+                    $fileNameNew = uniqid('', true) . "." . $fileActualExt;
+                    $fileDestination = $folder . $fileNameNew;
+                    $image_urls[] = $fileDestination;
+                    move_uploaded_file($fileTmpName, $fileDestination);
+                } else {
+                    $errors['file_too_big'] = 'File is too big!';
+                }   
+            } else {
+                $errors['unexpected_error'] = 'There was a problem in uploading the file!';
+            }
+        } else {
+            $errors['invalid_file_type'] = 'Invalid File Type!';
+        }
+    }
+
+
    
 
-  try {
-    require_once "./model/product.model.php";
-    require_once "./model/user.model.php";
+    try {
+        require_once "./model/product.model.php";
+        require_once "./model/user.model.php";
 
 
-    //Collection of Data
-    $product_name = $_POST['product_name'];
-    $unit_price = $_POST['unit_price'];
-    $product_desc = $_POST['product_desc'];
+        //Collection of Data
+        $product_name = $_POST['product_name'];
+        $unit_price = $_POST['unit_price'];
+        $product_desc = $_POST['product_desc'];
 
 
-    //Compiling Data into single array
-    $data = [
-        'product_name' => $product_name,
-        'unit_price' => $unit_price,
-        'product_desc' => $product_desc,
-        'image_url' => $image_url,
-    ];
+        //Compiling Data into single array
+        $data = [
+            'product_name' => $product_name,
+            'unit_price' => $unit_price,
+            'product_desc' => $product_desc,
+        ];
 
-    //Error Handlers
+        //Error Handlers
 
-    if (is_input_empty($data)) {
-        $errors["empty_input"] = "Fill in all fields!";
-    }
+        if (is_input_empty($data)) {
+            $errors["empty_input"] = "Fill in all fields!";
+        }
 
 
-    if ($errors) {
-        $_SESSION["errors"] = $errors;
+        if ($errors) {
+            $_SESSION["errors"] = $errors;
 
-        $_SESSION["signup_data"] = $data;
-        var_dump($errors);
+            $_SESSION["signup_data"] = $data;
+            var_dump($errors);
+            die();
+        }
+
+        //set_product
+
+        $product = set_product($pdo, $data);
+
+        foreach ($image_urls as $image_url) {
+            set_image($pdo, $product['product_id'], $image_url);
+        }
+
+        $pdo = null;
+        $stmt = null;
+
+        header("Location: /admin?form=success");
         die();
+    } catch (PDOException $e) {
+        die("Query failed: " . $e->GetMessage());
     }
-
-    //set_product
-
-    set_product($pdo, $data);
-
-    $pdo = null;
-    $stmt = null;
-
-    header("Location: /admin?form=success");
-    die();
-} catch (PDOException $e) {
-    die("Query failed: " . $e->GetMessage());
-}
 }
