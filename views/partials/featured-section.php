@@ -8,7 +8,7 @@
         <h2 class="text-[#AEA082] text-3xl font-bold mb-8">Moonstone Kiss Lip Oil</h2>
         <p>witness the mesmerizing charm of all six shades, each delivering a kiss of ethereal beauty.</p>
         <a
-          class="group relative inline-flex items-center overflow-hidden rounded mt-4 bg-[#AEA082]/80 px-8 py-3 text-white focus:outline-none focus:ring active:bg-indigo-500"
+          class="group relative inline-flex items-center overflow-hidden rounded mt-4 text-[#AEA082] border border-[#AEA082] px-8 py-3"
           href="/products"
         >
           <span class="absolute -end-full transition-all group-hover:end-4">
@@ -28,7 +28,7 @@
             </svg>
           </span>
 
-          <span class="text-sm font-medium transition-all group-hover:me-4"> Shop now </span>
+          <span class="text-lg font-medium transition-all group-hover:me-4"> Shop now </span>
         </a>
         
       </div>
