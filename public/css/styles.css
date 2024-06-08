@@ -88,3 +88,28 @@ body {
   opacity: 1;
   visibility: visible;
 }
+
+/* swiper */
+.swiper-slide.swiper-slide-thumb-active {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.swiper-slide {
+  opacity: 0.5;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  background-color: white;
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 100%;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  color: black;
+  font-size: 1.25rem !important;
+}

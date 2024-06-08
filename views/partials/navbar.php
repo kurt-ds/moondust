@@ -1,4 +1,4 @@
-<header class="header sticky top-0 z-[1000] bg-[#FAF6F2] py-8">
+<header class="header sticky top-0 z-[1000] bg-[#FAF6F2] py-8 border-b border-gray-200">
     <div class="container mx-auto">
         <div class="flex flex-row items-center justify-between">
             <img class="w-44 h-7 object-contain" src="/public/img/logo/logo-moondust.png" alt="moondust">
