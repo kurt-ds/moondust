@@ -82,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $product_name = $_POST['product_name'];
         $unit_price = $_POST['unit_price'];
         $product_desc = $_POST['product_desc'];
+        $variations = $_POST['variations'];
 
 
         //Compiling Data into single array
@@ -95,6 +96,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         if (is_input_empty($data)) {
             $errors["empty_input"] = "Fill in all fields!";
+        }
+
+        if (count($variations) == 0) {
+            $errors["no_variant"] = "Please add variations of the product!";
         }
 
 
@@ -112,6 +117,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         foreach ($image_urls as $image_url) {
             set_image($pdo, $product['product_id'], $image_url);
+        }
+
+
+        for ($i = 0; $i < count($variations); $i = $i + 2) {
+            $color = $variations[$i]['color'];
+            $name = $variations[$i + 1]['name'];
+            set_color($pdo, $product['product_id'], $color, $name);
         }
 
         $pdo = null;

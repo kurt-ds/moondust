@@ -25,3 +25,10 @@ CREATE TABLE product_image (
     FOREIGN KEY (product_id) REFERENCES product(product_id)
 );
 
+CREATE TABLE variation {
+    product_id INT NOT NULL,
+    variation_name VARCHAR(35) NOT NULL,
+    color VARCHAR(35) NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES product(product_id)
+}
+

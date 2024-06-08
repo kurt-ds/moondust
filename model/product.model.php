@@ -62,4 +62,15 @@ function set_image(object $pdo, $product_id ,string $image_url) {
   $stmt->execute();
 }
 
+function set_color(object $pdo, $product_id, $color, $name) {
+  $query = "INSERT INTO variation (product_id, variation_name, color) VALUES (:product_id, :variation_name, :color);";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":product_id", $product_id);
+  $stmt->bindParam(":variation_name", $name);
+  $stmt->bindParam(":color", $color);
+
+  $stmt->execute();
+}
+
 
