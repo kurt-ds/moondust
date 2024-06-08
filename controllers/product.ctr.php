@@ -1,5 +1,5 @@
 <?php
-
+ 
 $heading = "Product";
 $product_id = $params['product_id'];
 
