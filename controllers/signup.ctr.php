@@ -2,9 +2,46 @@
 
 $heading = "SIGN UP";
 
+function is_input_empty(array $data) {
+  forEach ($data as $key => $value) {
+      if (empty($value)) {
+          return true;
+      }
+  }
+  return false;
+}
+
+function is_invalid_email(string $email) {
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      return true;
+  } else {
+      return false;
+  }
+}
+
+function is_email_registered(object $pdo, string $email) {
+  if (get_email($pdo, $email)) {
+      return true;
+  } else {
+      return false;
+  }
+}
+
+function is_username_taken(object $pdo, string $username) {
+  if (get_user($pdo, $username)) {
+      return true;
+  } else {
+      return false;
+  }
+}
+
+
+
+
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
   require "views/signup.view.php";
+
 } elseif ($_SERVER['REQUEST_METHOD'] === "POST") {
   $username = $_POST['username'];
   $email = $_POST['email'];
@@ -23,8 +60,24 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
   try {
     require_once './model/user.model.php';
     //ERROR HANDLERS
+    
     $errors = [];
 
+    if(is_input_empty($data)){
+      $errors['empty_input'] = "Fill in all the fields!";
+    }
+    if(is_invalid_email($email)){
+      $errors['invalid_email'] = "Email is invalid!";
+    }
+    if(is_username_taken($pdo,$username)){
+      $errors['taken_username'] = "Username is taken!";
+    }
+    if(is_email_registered($pdo, $email)){
+      $errors['email_registered'] = "Email already exists!";
+    }
+    if(strlen($pwd) < 8 || strlen($pwd) > 64){
+      $errors['invalid_pwd'] = "Invalid password length!";
+    }
 
 
     if ($errors) {
