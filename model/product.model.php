@@ -73,4 +73,35 @@ function set_color(object $pdo, $product_id, $color, $name) {
   $stmt->execute();
 }
 
+function get_product_by_id(object $pdo, $product_id) {
+  $query = "SELECT * FROM product WHERE product_id = :product_id;";
+  $stmt = $pdo->prepare($query);
 
+  $stmt->bindParam(":product_id", $product_id);
+  $stmt->execute();
+
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function get_images_by_id(object $pdo, $product_id) {
+  $query = "SELECT image_url FROM product_image WHERE product_id = :product_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":product_id", $product_id);
+  $stmt->execute();
+
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function get_variations_by_id(object $pdo, $product_id) {
+  $query = "SELECT variation_name, color FROM variation WHERE product_id = :product_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":product_id", $product_id);
+  $stmt->execute();
+
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
