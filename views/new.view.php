@@ -8,6 +8,8 @@
         <br>
         <textarea name="product_desc" id=" product_desc" cols="30" rows="10" placeholder=" Product Description: " required></textarea>
         <br>
+        <input type="number" name="quantity" placeholder="Quantity: "required>
+        <br>
         <input type="file" name='files[]' id='file' multiple required>
         <br>
         <div>

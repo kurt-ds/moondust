@@ -82,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $product_name = $_POST['product_name'];
         $unit_price = $_POST['unit_price'];
         $product_desc = $_POST['product_desc'];
+        $quantity = $_POST['quantity'];
         $variations = $_POST['variations'];
 
 
@@ -90,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'product_name' => $product_name,
             'unit_price' => $unit_price,
             'product_desc' => $product_desc,
+            'quantity' => $quantity
         ];
 
         //Error Handlers

@@ -5,12 +5,13 @@ declare(strict_types=1);
 require_once './includes/dbh.inc.php';
 
 function set_product(object $pdo, array $data) {
-  $query = "INSERT INTO product (product_name, unit_price, product_desc) VALUES (:product_name, :unit_price, :product_desc);";
+  $query = "INSERT INTO product (product_name, unit_price, product_desc, quantity) VALUES (:product_name, :unit_price, :product_desc, :quantity);";
   $stmt = $pdo->prepare($query);
 
   $stmt->bindParam(":product_name", $data['product_name']);
   $stmt->bindParam(":unit_price", $data['unit_price']);
   $stmt->bindParam(":product_desc", $data['product_desc']);
+  $stmt->bindParam(":quantity", $data['quantity']);
 
   $stmt->execute();
   $query = "SELECT * FROM product WHERE product_name = :product_name;";
