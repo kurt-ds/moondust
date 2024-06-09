@@ -66,7 +66,7 @@ $invoices = [
         </div>
       </div>
     </div>
-    <!-- Products Table -->
+    <!-- Products Table -- added stock --> 
     <div class="pt-20 border-t border-gray-200">
       <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">

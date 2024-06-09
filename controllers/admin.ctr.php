@@ -4,7 +4,7 @@ $heading = "ADMIN PAGE";
 
 
 
-
+//added count details on products and users
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   try {
