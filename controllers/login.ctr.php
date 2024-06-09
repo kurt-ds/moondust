@@ -9,14 +9,14 @@ function is_input_empty($username, $pwd) {
       return false;
   }
 }
-function is_username_wrong(bool|array $result) {
+function is_username_wrong($result) {
   if (!$result){
       return true;
   } else {
       return false;
   }
 }
-function is_password_wrong(string $pwd, string $hashedPwd) {
+function is_password_wrong($pwd, $hashedPwd) {
   if (!password_verify($pwd, $hashedPwd)){
       return true;
   } else {
