@@ -20,7 +20,6 @@
                     <img class="w-6 h-6" src="/public/img/icons/icon-user.svg" alt="icon user">
                     <?php
                     $loggedIn = isset($_SESSION['user_id']);
-                    $loginFailed = isset($_GET['login']) && $_GET['login'] === 'failed';
                     ?>
                     <ul class="header-user__auth">
                         <?php if ($loggedIn) { ?>
@@ -44,11 +43,3 @@
         </div>
     </div>
 </header>
-
-<?php if ($loginFailed): ?>
-    <div class="fixed inset-0 -translate-y-64 flex items-center justify-center -z-10">
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-            <span class="block sm:inline">Login failed. Please check your credentials and try again.</span>
-        </div>
-    </div>
-<?php endif; ?>
