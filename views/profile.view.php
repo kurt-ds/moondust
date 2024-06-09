@@ -8,9 +8,9 @@ $orders = [
       'order_date' => '2024-06-01',
       'total_price' => '275.00',
       'order_items' => [
-          ['product_name' => 'Product A', 'quantity' => 2, 'unit_price' => 75.00],
-          ['product_name' => 'Product B', 'quantity' => 1, 'unit_price' => 150.00],
-          ['product_name' => 'Product C', 'quantity' => 3, 'unit_price' => 50.00],
+    ['product_name' => 'Stellar Powder Tint ', 'quantity' => 2, 'unit_price' => 75.00],
+    ['product_name' => 'Moonstone Kiss lip oil', 'quantity' => 1, 'unit_price' => 150.00],
+    ['product_name' => 'Callisto Lip Paint ', 'quantity' => 3, 'unit_price' => 50.00],
       ],
       'status' => 'Paid',
       'order_number' => '1234567890',
@@ -108,7 +108,7 @@ $orders = [
                     <td class="hidden py-6 pr-8 sm:table-cell">₱<?php echo $item['unit_price']; ?></td>
                     <td class="hidden py-6 pr-8 sm:table-cell"><?php echo $order['status']; ?></td>
                     <td class="whitespace-nowrap py-6 text-right font-medium">
-                      <a href="#" class="text-[##AEA089]">View<span class="hidden lg:inline"> Product</span><span class="sr-only">, <?php echo $item; ?></span></a>
+                      <a href="#" class="text-[#AEA089]">View<span class="hidden lg:inline"> Product</span><span class="sr-only">, <?php echo $item; ?></span></a>
                     </td>
                   </tr>
                 <?php endforeach; ?>
