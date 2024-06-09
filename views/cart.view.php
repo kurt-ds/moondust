@@ -2,7 +2,7 @@
 <?php require 'partials/navbar.php'; ?>
 
 <?php
-// Dummy data for cart items
+// Dummy data for cart items 
 $cart_items = [
     ['product_name' => 'Stellar Powder Tint ', 'variation' => 'Biscuit Bliss', 'quantity' => 2, 'unit_price' => 75.00],
     ['product_name' => 'Moonstone Kiss lip oil', 'variation' => 'Solana', 'quantity' => 1, 'unit_price' => 150.00],

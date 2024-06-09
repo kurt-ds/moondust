@@ -1,11 +1,14 @@
 <?php require 'partials/head.php'; ?>
 <?php require 'partials/navbar.php'; ?>
 
+>
+
 <main class="product-new my-32">
   <div class="container mx-auto">
     <h1 class="text-6xl font-bold text-[#AEA089] mb-10">Add New Product</h1>
     <div class="py-12 px-20 bg-white rounded-3xl">
       <form class="space-y-6 grid grid-cols-2 gap-10" action="/products" method="post" enctype="multipart/form-data">
+
         <div>
           <div class="mb-6">
             <label for="product_name" class="block text-xl mb-2 font-medium text-gray-700">Product Name</label>
@@ -18,6 +21,10 @@
           <div class="mb-6">
             <label for="product_desc" class="block text-xl mb-2 font-medium text-gray-700">Product Description</label>
             <textarea name="product_desc" id="product_desc" cols="30" rows="10" placeholder="Product Description" class="w-full text-xl px-4 py-2 mt-1 rounded-md border bg-transparent placeholder-[#AEA089] border-[#AEA089] focus:outline-[#AEA089]" required></textarea>
+          </div>
+          <div class="mb-6">
+            <label for="quantity" class="block text-xl mb-2 font-medium text-gray-700">Quantity</label>
+            <input type="number" step="0.01" name="quantity" id="quantity" placeholder="Quantity" class="w-full text-xl px-4 py-2 mt-1 rounded-md border bg-transparent placeholder-[#AEA089] border-[#AEA089] focus:outline-[#AEA089]" required>
           </div>
         </div>
         <div>

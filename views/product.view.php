@@ -40,6 +40,7 @@
         </select>
       </div>      
       <p class="text-[#1E1E1E] text-xl mt-4"><?php echo htmlspecialchars($product['product_desc']); ?></p>
+      <h3 class="text-[#1E1E1E] text-xl mt-4">Stocks Available: <?php echo htmlspecialchars($product['quantity']); ?></h3>
       <button type="submit" class="mt-8 uppercase font-bold text-xl border-[#AEA089] bg-[#AEA089] text-white rounded-full w-full py-4">
       Add to cart
       </button>
