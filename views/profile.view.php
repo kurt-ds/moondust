@@ -108,7 +108,7 @@ $orders = [
                     <td class="hidden py-6 pr-8 sm:table-cell">₱<?php echo $item['unit_price']; ?></td>
                     <td class="hidden py-6 pr-8 sm:table-cell"><?php echo $order['status']; ?></td>
                     <td class="whitespace-nowrap py-6 text-right font-medium">
-                      <a href="#" class="text-indigo-600">View<span class="hidden lg:inline"> Product</span><span class="sr-only">, <?php echo $item; ?></span></a>
+                      <a href="#" class="text-[##AEA089]">View<span class="hidden lg:inline"> Product</span><span class="sr-only">, <?php echo $item; ?></span></a>
                     </td>
                   </tr>
                 <?php endforeach; ?>
