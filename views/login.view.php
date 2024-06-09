@@ -1,6 +1,18 @@
 <?php require 'partials/head.php' ?>
 <?php require 'partials/navbar.php'; ?>
 
+<?php if (isset($_GET['login']) && $_GET['login'] === 'failed'): ?>
+    <?php if (isset($_SESSION['errors_login']) && !empty($_SESSION['errors_login'])): ?>
+        <div class="flex flex-col justify-center w-max mx-auto relative top-56">
+            <div class="bg-red-100 px-40 border border-red-400 text-red-700 py-3 rounded relative" role="alert">
+                <?php foreach ($_SESSION['errors_login'] as $error): ?>
+                    <span class="block sm:inline"><?php echo $error; ?></span><br>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+
 <div class="flex flex-col items-center justify-center h-[900px]">
   <div class="text-center flex flex-col gap-1 mb-6">
     <h2 class="text-[#AEA089] text-3xl font-bold">Login</h2>

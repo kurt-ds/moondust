@@ -36,13 +36,19 @@ $invoices = [
           <div class="bg-[#AEA089] px-4 py-6 sm:px-6 lg:px-8 rounded-lg">
             <p class="text-sm font-medium leading-6 text-white">Number of Users</p>
             <p class="mt-2 flex items-baseline gap-x-2">
+
               <span class="text-4xl font-semibold tracking-tight text-white"><?php echo $userCount; ?></span>
+        
+
             </p>
           </div>
           <div class="bg-[#AEA089] px-4 py-6 sm:px-6 lg:px-8 rounded-lg">
             <p class="text-sm font-medium leading-6 text-white">Number of Products</p>
             <p class="mt-2 flex items-baseline gap-x-2">
+
               <span class="text-4xl font-semibold tracking-tight text-white"><?php echo $product_count; ?></span>
+
+
             </p>
           </div>
           <div class="bg-[#AEA089] px-4 py-6 sm:px-6 lg:px-8 rounded-lg">
@@ -96,7 +102,9 @@ $invoices = [
                     <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900"><?php echo htmlspecialchars($product["product_name"]); ?></td>
                     <td class="px-3 py-4 text-sm text-gray-500 w-[30rem]"><?php echo htmlspecialchars($product["product_desc"]); ?></td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">₱<?php echo htmlspecialchars($product["unit_price"]); ?></td>
+
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo htmlspecialchars($product["quantity"]); ?></td>
+
                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                       <a href="/products/<?php echo htmlspecialchars($product["product_id"]); ?>" class="text-[#AEA089]">View<span class="sr-only">, <?php echo htmlspecialchars($product["product_name"]); ?></span></a>
                       <form class="inline" action="/delete" method="POST">
@@ -154,4 +162,8 @@ $invoices = [
       </div>
     </div>
   </div>
+
+
+
 </main>
+

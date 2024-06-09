@@ -18,9 +18,25 @@
                 </a>
                 <button class="header-user">
                     <img class="w-6 h-6" src="/public/img/icons/icon-user.svg" alt="icon user">
+                    <?php
+                    $loggedIn = isset($_SESSION['user_id']);
+                    ?>
                     <ul class="header-user__auth">
-                    <a href="/login">Login</a>
-                    <a href="/signup">Signup</a>
+                        <?php if ($loggedIn) { ?>
+                            <li>
+                                <a href="/profile">Profile</a>
+                            </li>
+                            <li>
+                                <a href="/logout">Logout</a>
+                            </li>
+                        <?php } else { ?>
+                            <li>
+                                <a href="/login">Login</a>
+                            </li>
+                            <li>
+                                <a href="/signup">Signup</a>
+                            </li>
+                        <?php } ?>
                     </ul>
                 </button>
             </div>

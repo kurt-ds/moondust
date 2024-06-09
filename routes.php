@@ -32,5 +32,8 @@ return [
   },
   '/new' => function (array $params = []) {
     require 'controllers/new.ctr.php';
+  },
+  '/profile' => function (array $params = []) {
+    require 'controllers/profile.ctr.php';
   }
 ];
