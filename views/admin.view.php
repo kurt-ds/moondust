@@ -34,7 +34,7 @@ $invoices = [
     <h1 class="text-6xl font-bold text-[#AEA089] mb-10">Admin Dashboard</h1>
     <div class="bg-[#FAF6F2] py-12">
       <div class="mx-auto max-w-7xl">
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <div class="bg-[#AEA089] px-4 py-6 sm:px-6 lg:px-8 rounded-lg">
             <p class="text-sm font-medium leading-6 text-white">Number of Users</p>
             <p class="mt-2 flex items-baseline gap-x-2">
@@ -48,11 +48,17 @@ $invoices = [
             </p>
           </div>
           <div class="bg-[#AEA089] px-4 py-6 sm:px-6 lg:px-8 rounded-lg">
-            <p class="text-sm font-medium leading-6 text-white">Total Orders</p>
+            <p class="text-sm font-medium leading-6 text-white">Total Sales</p>
             <p class="mt-2 flex items-baseline gap-x-2">
-              <span class="text-4xl font-semibold tracking-tight text-white">3,000</span>
+              <span class="text-4xl font-semibold tracking-tight text-white">₱3,000</span>
             </p>
           </div>
+          <div class="bg-[#AEA089] px-4 py-6 sm:px-6 lg:px-8 rounded-lg">
+            <p class="text-sm font-medium leading-6 text-white">Total Orders</p>
+            <p class="mt-2 flex items-baseline gap-x-2">
+              <span class="text-4xl font-semibold tracking-tight text-white">69</span>
+            </p>
+          </div>          
         </div>
       </div>
     </div>
@@ -91,7 +97,7 @@ $invoices = [
                     </td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900"><?php echo htmlspecialchars($product["product_name"]); ?></td>
                     <td class="px-3 py-4 text-sm text-gray-500 w-[30rem]"><?php echo htmlspecialchars($product["product_desc"]); ?></td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo htmlspecialchars($product["unit_price"]); ?></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">₱<?php echo htmlspecialchars($product["unit_price"]); ?></td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">1</td>
                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                       <a href="/products/<?php echo htmlspecialchars($product["product_id"]); ?>" class="text-[#AEA089]">View<span class="sr-only">, <?php echo htmlspecialchars($product["product_name"]); ?></span></a>
