@@ -31,7 +31,7 @@ $invoices = [
 
 <main class="my-32">
   <div class="container mx-auto">
-    <h1 class="text-6xl font-bold text-[#AEA089] mb-10">Admin Dashboard</h1>
+    <h1 class="text-6xl font-bold text-[#AEA089] mb-10">Dashboard</h1>
     <div class="bg-[#FAF6F2] py-12">
       <div class="mx-auto max-w-7xl">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -83,7 +83,7 @@ $invoices = [
                   <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Product Name</th>
                   <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Product Description</th>
                   <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Unit Price</th>
-                  <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Quantity</th>
+                  <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Stock</th>
                   <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0 text-center">
                     <span class="sr-only">Actions</span>
                   </th>
