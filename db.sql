@@ -32,5 +32,10 @@ CREATE TABLE variation (
     FOREIGN KEY (product_id) REFERENCES product(product_id)
 );
 
-
+CREATE TABLE inventory_item (
+	product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    unit_price DECIMAL(8,2) NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES product(product_id)
+);
 

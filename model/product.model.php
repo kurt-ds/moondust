@@ -42,6 +42,24 @@ LEFT JOIN product_image pi ON min_image.min_id = pi.image_id;";
   return $result;
 }
 
+function get_all_admin_products(object $pdo) {
+  $query = "SELECT p.*, pi.image_url AS main_image, ii.quantity, ii.unit_price
+FROM product AS p
+LEFT JOIN (
+  SELECT product_id, MIN(image_id) AS min_id
+  FROM product_image
+  GROUP BY product_id
+) AS min_image ON p.product_id = min_image.product_id
+LEFT JOIN product_image AS pi ON min_image.min_id = pi.image_id
+LEFT JOIN inventory_item AS ii ON p.product_id = ii.product_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->execute();
+
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
 function get_product_by_name(object $pdo, string $product_name) {
   $query = "SELECT product_id FROM product WHERE product_name = :product_name;";
   $stmt = $pdo->prepare($query);

@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
    
     
 
-    $products = get_all_products($pdo);
+    $products = get_all_admin_products($pdo);
     $product_count = get_product_count($pdo);
     $userCount = get_users($pdo);
 
@@ -26,5 +26,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } catch (PDOException $e) {
     die("Query failed: " . $e->GetMessage());
 }
-
 }
