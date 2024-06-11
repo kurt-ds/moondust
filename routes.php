@@ -14,6 +14,8 @@ return [
   '/products' => function (array $params = []) {
     if ($params['product_id'] === 0) {
       require 'controllers/products.ctr.php';
+    } else if ($params['path2'] === 'edit') {
+      require 'controllers/edit.ctr.php';
     } else {
       require 'controllers/product.ctr.php';
     }

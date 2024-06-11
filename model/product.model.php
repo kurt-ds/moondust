@@ -137,3 +137,81 @@ function get_variations_by_id(object $pdo, $product_id) {
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return $result;
 }
+
+function get_quantity_by_id(object $pdo, $product_id) {
+  $query = "SELECT quantity FROM inventory_item WHERE product_id = :product_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":product_id", $product_id);
+  $stmt->execute();
+
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function delete_images_by_id(object $pdo, $product_id) {
+  $images = get_images_by_id($pdo, $product_id);
+  foreach ($images as $image) {
+    unlink($image['image_url']);
+  }
+  $query = "DELETE FROM product_image where product_id = :product_id";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":product_id", $product_id);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function delete_variations_by_id(object $pdo, $product_id) {
+  $query = "DELETE FROM variation where product_id = :product_id";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":product_id", $product_id);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function update_product(object $pdo, array $data) {
+  $query = "UPDATE product SET product_name = :product_name, unit_price = :unit_price, product_desc = :product_desc WHERE product_id = :product_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":product_id", $data['product_id']);
+  $stmt->bindParam(":product_name", $data['product_name']);
+  $stmt->bindParam(":unit_price", $data['unit_price']);
+  $stmt->bindParam(":product_desc", $data['product_desc']);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function update_quantity(object $pdo, $product_id, $quantity) {
+  $product = get_product_by_id($pdo, $product_id);
+  $total_price = $quantity * $product['unit_price'];
+  $query = "UPDATE inventory_item SET quantity = :quantity, total_price = :total_price WHERE product_id = :product_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":product_id", $product_id);
+  $stmt->bindParam(":quantity", $quantity);
+  $stmt->bindParam(":total_price", $total_price);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function update_images(object $pdo, array $image_urls, $product_id) {
+  delete_images_by_id($pdo, $product_id);
+  foreach ($image_urls as $image_url) {
+    set_image($pdo, $product_id, $image_url);
+  }
+}
+
+function update_variations(object $pdo, array $variations, $product_id) {
+  delete_variations_by_id($pdo, $product_id);
+  for ($i = 0; $i < count($variations); $i = $i + 2) {
+    $color = $variations[$i]['color'];
+    $name = $variations[$i + 1]['name'];
+    set_color($pdo, $product_id, $color, $name);
+  }
+}

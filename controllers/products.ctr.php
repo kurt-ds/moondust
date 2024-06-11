@@ -12,17 +12,111 @@ function is_input_empty($data): bool {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-  try {
-    require_once "./model/product.model.php";
+    try {
+        require_once "./model/product.model.php";
 
-    $products = get_all_products($pdo);
+        $products = get_all_products($pdo);
 
-    require "views/products.view.php";
-    $pdo = null;
-    $stmt = null;
-} catch (PDOException $e) {
-    die("Query failed: " . $e->GetMessage());
-}
+        require "views/products.view.php";
+        $pdo = null;
+        $stmt = null;
+    } catch (PDOException $e) {
+        die("Query failed: " . $e->GetMessage());
+    }
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['_method'] === 'put') {
+    $errors = [];
+    $image_urls = [];
+
+    $files = $_FILES['files'];
+
+    $folder = "uploads/";
+    $names = $files['name'];
+    $tmp_names = $files['tmp_name'];
+    $sizes = $files['size'];
+    $fileErrors = $files['error'];
+    $types = $files['type'];
+
+
+    for ($i = 0; $i < count($names); $i++) {
+        $fileName = $names[$i];
+        $fileTmpName = $tmp_names[$i];
+        $fileSize = $sizes[$i];
+        $fileError = $fileErrors[$i];
+        $fileType = $types[$i];
+
+        $fileExt = explode('.', $fileName);
+        $fileActualExt = strtolower(end($fileExt));
+        $allowed = array('jpg', 'png', 'jpeg');
+
+        if ($_FILES['files']['name'][0] != "") {
+            if (in_array($fileActualExt, $allowed)) {
+                if($fileError === 0) {
+                    if ($fileSize < 10000000) {
+                        $fileNameNew = uniqid('', true) . "." . $fileActualExt;
+                        $fileDestination = $folder . $fileNameNew;
+                        $image_urls[] = $fileDestination;
+                        move_uploaded_file($fileTmpName, $fileDestination);
+                    } else {
+                        $errors['file_too_big'] = 'File is too big!';
+                    }   
+                } else {
+                    $errors['unexpected_error'] = 'There was a problem in uploading the file!';
+                }
+            } else {
+                $errors['invalid_file_type'] = 'Invalid File Type!';
+            }
+        }
+    }
+
+    try {
+        require_once "./model/product.model.php";
+
+        $product_id = $_POST['product_id'];
+        $product_name = $_POST['product_name'];
+        $unit_price = $_POST['unit_price'];
+        $product_desc = $_POST['product_desc'];
+        $quantity = $_POST['quantity'];
+        $variations = $_POST['variations'];
+
+        //Compiling Data into single array        
+        $data = [
+            'product_id' => $product_id,
+            'product_name' => $product_name,
+            'unit_price' => $unit_price,
+            'product_desc' => $product_desc
+        ];
+
+        //Error Handlers
+
+        if (is_input_empty($data)) {
+            $errors["empty_input"] = "Fill in all fields!";
+        }
+
+        if (count($variations) == 0) {
+            $errors["no_variant"] = "Please add variations of the product!";
+        }
+
+        if ($errors) {
+            $_SESSION["errors"] = $errors;
+
+            $_SESSION["signup_data"] = $data;
+            var_dump($errors);
+            die();
+        }
+
+        update_product($pdo, $data);
+        update_quantity($pdo, $data['product_id'], $quantity);
+        if ($image_urls) {
+            update_images($pdo, $image_urls, $data['product_id']);
+        }
+        update_variations($pdo, $variations, $data['product_id']);
+
+        header("Location: /admin?form=success");
+        $pdo = null;
+        $stmt = null;
+    } catch (PDOException $e) {
+        die("Query failed: " . $e->GetMessage());
+    }
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = [];
 

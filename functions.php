@@ -24,19 +24,26 @@ function urlLs($value) {
     return $_SERVER["REQUEST_URI"] === $value;
 }
 
+
+
 function run(string $url, array $routes): void
 {
     $uri = parse_url("$url");
     $path = $uri['path'];
     $path_array = explode('/', $path);
 
-    $regex_product_id = "/\/products\/\d+$/";
+    $regex_product_id = '/\/products\/\d+$/';
+    $regex_product_id_edit = '/\/products\/\d+\/edit$/';
     $product_id = 0;
     $path2 = '';
 
     if ((preg_match($regex_product_id, $path, $matches))) {
         $path = '/' . $path_array[1];
         $product_id = $path_array[2];
+    } else if ((preg_match($regex_product_id_edit, $path, $matches))) {
+        $path = '/' . $path_array[1];
+        $product_id = $path_array[2];
+        $path2 = 'edit';
     }
 
     
