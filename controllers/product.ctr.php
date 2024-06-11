@@ -22,4 +22,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   } catch (PDOException $e) {
       die("Query failed: " . $e->getMessage());
   }
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['_method'] == 'delete') {
+  try {
+    require_once './model/product.model.php';
+
+    delete_images_by_id($pdo, $product_id);
+    delete_variations_by_id($pdo, $product_id);
+    delete_inventory($pdo, $product_id);
+    delete_product($pdo, $product_id);
+  
+    header("Location: /admin?delete=success");
+    
+    $pdo = null;
+    $stmt = null;
+    die();
+  } catch (PDOException $e) {
+      die("Query failed: " . $e->getMessage());
+  }
 }

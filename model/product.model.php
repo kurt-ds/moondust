@@ -215,3 +215,23 @@ function update_variations(object $pdo, array $variations, $product_id) {
     set_color($pdo, $product_id, $color, $name);
   }
 }
+
+function delete_product(object $pdo, $product_id) {
+  $query = "DELETE FROM product where product_id = :product_id";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":product_id", $product_id);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function delete_inventory(object $pdo, $product_id) {
+  $query = "DELETE FROM inventory_item where product_id = :product_id";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":product_id", $product_id);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}
