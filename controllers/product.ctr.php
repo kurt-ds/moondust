@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $product = get_product_by_id($pdo, $product_id);
     $images = get_images_by_id($pdo, $product_id);
     $variations = get_variations_by_id($pdo, $product_id);
-
+    $quantity = get_quantity_by_id($pdo, $product_id);
   
     require "views/product.view.php";
     
