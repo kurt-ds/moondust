@@ -5,13 +5,12 @@ declare(strict_types=1);
 require_once './includes/dbh.inc.php';
 
 function set_product(object $pdo, array $data) {
-  $query = "INSERT INTO product (product_name, unit_price, product_desc, quantity) VALUES (:product_name, :unit_price, :product_desc, :quantity);";
+  $query = "INSERT INTO product (product_name, unit_price, product_desc) VALUES (:product_name, :unit_price, :product_desc);";
   $stmt = $pdo->prepare($query);
 
   $stmt->bindParam(":product_name", $data['product_name']);
   $stmt->bindParam(":unit_price", $data['unit_price']);
   $stmt->bindParam(":product_desc", $data['product_desc']);
-  $stmt->bindParam(":quantity", $data['quantity']);
 
   $stmt->execute();
   $query = "SELECT * FROM product WHERE product_name = :product_name;";
@@ -19,8 +18,22 @@ function set_product(object $pdo, array $data) {
 
   $stmt->bindParam(":product_name", $data['product_name']);
   $stmt->execute();
-  
+
   $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  $product_id = $result['product_id'];
+  $total_price = $data['quantity'] * $data['unit_price'];
+
+  $query = "INSERT INTO inventory_item (product_id, quantity, total_price) VALUES (:product_id, :quantity, :total_price);";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":product_id",  $product_id);
+  $stmt->bindParam(":quantity", $data['quantity']);
+  $stmt->bindParam(":total_price", $total_price);
+
+  $stmt->execute();
+
+
   return $result;
 }
 
@@ -43,7 +56,7 @@ LEFT JOIN product_image pi ON min_image.min_id = pi.image_id;";
 }
 
 function get_all_admin_products(object $pdo) {
-  $query = "SELECT p.*, pi.image_url AS main_image, ii.quantity, ii.unit_price
+  $query = "SELECT p.*, pi.image_url AS main_image, ii.quantity, ii.total_price
 FROM product AS p
 LEFT JOIN (
   SELECT product_id, MIN(image_id) AS min_id
