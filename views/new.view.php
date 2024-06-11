@@ -24,7 +24,7 @@
           </div>
           <div class="mb-6">
             <label for="quantity" class="block text-xl mb-2 font-medium text-gray-700">Quantity</label>
-            <input type="number" step="0.01" name="quantity" id="quantity" placeholder="Quantity" class="w-full text-xl px-4 py-2 mt-1 rounded-md border bg-transparent placeholder-[#AEA089] border-[#AEA089] focus:outline-[#AEA089]" required>
+            <input type="number" name="quantity" id="quantity" placeholder="Quantity" class="w-full text-xl px-4 py-2 mt-1 rounded-md border bg-transparent placeholder-[#AEA089] border-[#AEA089] focus:outline-[#AEA089]" required>
           </div>
         </div>
         <div>
