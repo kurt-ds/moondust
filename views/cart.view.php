@@ -25,8 +25,8 @@
                       </h3>
                       <form action="/cart" method='post'>
                         <input type="hidden" name="_method" value="delete" />
-                        <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($item["cart_id"]); ?>">
-                        <button type="button" class="text-red-500 hover:text-red-600 focus:outline-none focus:text-red-600">Remove</button>
+                        <input type="hidden" name="cart_id" value="<?php echo htmlspecialchars($item["cart_id"]); ?>">
+                        <button type="submit" class="text-red-500 hover:text-red-600 focus:outline-none focus:text-red-600">Remove</button>
                       </form>
                       <div>
                         <input type="checkbox" id="select-<?php echo $key; ?>" name="selected_items[]" value="<?php echo $key; ?>" class="mt-2 accent-[#8a7f6e]">

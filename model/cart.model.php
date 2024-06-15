@@ -41,7 +41,15 @@ WHERE c.user_id = :user_id;";
   return $result;
 }
 
+function delete_cart(object $pdo, $cart_id) {
+  $query = "DELETE FROM cart_item where cart_id = :cart_id";
+  $stmt = $pdo->prepare($query);
 
+  $stmt->bindParam(":cart_id", $cart_id);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
 
 

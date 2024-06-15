@@ -16,7 +16,7 @@ if (!isLoggedIn()) {
 }
 
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   try {
     require_once "./model/cart.model.php";
 
@@ -30,6 +30,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 } catch (PDOException $e) {
     die("Query failed: " . $e->GetMessage());
 }
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['_method'] == 'delete') {
+  $cart_id = $_POST['cart_id'];
+  try {
+    require_once "./model/cart.model.php";
+
+    delete_cart($pdo, $cart_id);
+
+    header("Location: /cart?delete=success");
+    $pdo = null;
+    $stmt = null;
+  } catch (PDOException $e) {
+      die("Query failed: " . $e->GetMessage());
+  }
 } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   $variation = $_POST['variation'];
