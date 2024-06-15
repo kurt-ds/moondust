@@ -34,10 +34,16 @@
                       </div>                      
                     </div>
                     <p class="text-sm text-gray-500"><?php echo $item['variation']; ?></p>
-                    <div class="flex text-sm mt-4">
-                      <label class="mr-1" for="quantity-<?php echo $key; ?>">Quantity: </label>
-                      <input type="number" id="quantity-<?php echo $key; ?>" name="quantity[]" value="<?php echo $item['quantity']; ?>" min="1" class="w-16 border-gray-300 rounded-md">
-                    </div>
+                    <form action="/cart" method='post'>
+                      <input type="hidden" name="_method" value="put" />
+                      <input type="hidden" name="cart_id" value="<?php echo htmlspecialchars($item["cart_id"]); ?>">
+                      <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($item["user_id"]); ?>">
+                      <div class="flex text-sm mt-4">
+                        <label class="mr-1" for="quantity-<?php echo $key; ?>">Quantity: </label>
+                        <input type="number" id="quantity-<?php echo $key; ?>" name="quantity" value="<?php echo $item['quantity']; ?>" min="1" class="w-16 border-gray-300 rounded-md">
+                      </div>
+                      <button type='submit' >Confirm</button>
+                    </form>
                     <p class="mt-1 text-sm font-medium text-gray-900">Unit Price: ₱<?php echo number_format($item['unit_price'], 2); ?></p>
                     <p class="mt-1 text-sm font-medium text-gray-900">Total Price: ₱<?php echo number_format($item['total_price'], 2); ?></p>
                   </div>

@@ -43,6 +43,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   } catch (PDOException $e) {
       die("Query failed: " . $e->GetMessage());
   }
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['_method'] == 'put') {
+  try {
+    require_once "./model/cart.model.php";
+    require_once "./model/product.model.php";
+
+
+    $cart_id = $_POST['cart_id'];
+    $quantity = $_POST['quantity'];
+    $user_id = $_POST['user_id'];
+    $cart = get_cart($pdo, $cart_id);
+    $product = get_product_by_id($pdo, $cart['product_id']);
+    $total_price = $quantity * $product['unit_price'];
+
+    $data = [
+      'cart_id' => $cart_id,
+      'quantity' => $quantity,
+      'total_price' => $total_price   
+    ];
+
+    $errors = [];
+
+    if (is_input_empty($data)) {
+      $errors["empty_input"] = "Fill in all fields!";
+    }
+
+    if ($errors) {
+      $_SESSION["errors"] = $errors;
+
+      $_SESSION["signup_data"] = $data;
+      var_dump($errors);
+      die();
+    }
+
+    update_cart($pdo, $data);
+
+    header("Location: /cart?update=success");
+    $pdo = null;
+    $stmt = null;
+  } catch (PDOException $e) {
+      die("Query failed: " . $e->GetMessage());
+  }
 } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   $variation = $_POST['variation'];

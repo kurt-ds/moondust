@@ -19,9 +19,19 @@ function set_cart(object $pdo, array $data) {
 
   $stmt->execute();
 }
+function get_cart(object $pdo, $cart_id) {
+  $query = "SELECT * FROM cart_item WHERE cart_id = :cart_id";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":cart_id", $cart_id);
+  
+  $stmt->execute();
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  return $result;
+}
 
 function get_cart_by_id(object $pdo, $user_id) {
-  $query = "SELECT c.cart_id, p.product_name, p.unit_price ,c.quantity, c.variation, c.total_price, pi.image_url AS main_image
+  $query = "SELECT c.cart_id, c.user_id, p.product_name, p.unit_price ,c.quantity, c.variation, c.total_price, pi.image_url AS main_image
 FROM cart_item AS c
 LEFT JOIN product as p ON c.product_id = p.product_id
 LEFT JOIN (
@@ -51,6 +61,17 @@ function delete_cart(object $pdo, $cart_id) {
   $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function update_cart(object $pdo, array $data) {
+  $query = "UPDATE cart_item SET quantity = :quantity, total_price = :total_price WHERE cart_id = :cart_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":cart_id", $data['cart_id']);
+  $stmt->bindParam(":quantity", $data['quantity']);
+  $stmt->bindParam(":total_price", $data['total_price']);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
 
 
