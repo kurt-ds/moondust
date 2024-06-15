@@ -40,7 +40,6 @@ LEFT JOIN (
   GROUP BY product_id
 ) AS min_image ON p.product_id = min_image.product_id
 LEFT JOIN product_image AS pi ON min_image.min_id = pi.image_id
-LEFT JOIN inventory_item AS ii ON p.product_id = ii.product_id
 WHERE c.user_id = :user_id;";
   $stmt = $pdo->prepare($query);
 
@@ -48,6 +47,26 @@ WHERE c.user_id = :user_id;";
   
   $stmt->execute();
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function get_full_cart(object $pdo, $cart_id) {
+  $query = "SELECT c.cart_id, c.user_id, p.product_name, p.unit_price ,c.quantity, c.variation, c.total_price, pi.image_url AS main_image
+FROM cart_item AS c
+LEFT JOIN product as p ON c.product_id = p.product_id
+LEFT JOIN (
+  SELECT product_id, MIN(image_id) AS min_id
+  FROM product_image
+  GROUP BY product_id
+) AS min_image ON p.product_id = min_image.product_id
+LEFT JOIN product_image AS pi ON min_image.min_id = pi.image_id
+WHERE c.cart_id = :cart_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":cart_id", $cart_id);
+  
+  $stmt->execute();
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
   return $result;
 }
 

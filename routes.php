@@ -23,6 +23,9 @@ return [
   '/cart' => function (array $params = []) {
     require 'controllers/cart.ctr.php';
   },
+  '/order' => function (array $params = []) {
+    require 'controllers/order.ctr.php';
+  },
   '/admin' => function (array $params = []) {
     require 'controllers/admin.ctr.php';
   },

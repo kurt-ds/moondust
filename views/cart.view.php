@@ -5,10 +5,10 @@
 <div class="bg-white">
   <div class="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
     <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Your Cart</h1>
+    <form action="/payment" method="post">
     <div class="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
       <section aria-labelledby="cart-heading" class="lg:col-span-7">
         <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
-
         <ul role="list" class="divide-y divide-gray-200 border-b border-t border-gray-200">
           <?php foreach ($cart_items as $key => $item) : ?>
             <li class="flex py-6 sm:py-10">
@@ -29,7 +29,7 @@
                         <button type="submit" class="text-red-500 hover:text-red-600 focus:outline-none focus:text-red-600">Remove</button>
                       </form>
                       <div>
-                        <input type="checkbox" id="select-<?php echo $key; ?>" name="selected_items[]" value="<?php echo $key; ?>" class="mt-2 accent-[#8a7f6e]">
+                        <input type="checkbox" id="select-<?php echo htmlspecialchars($item["cart_id"]);  ?>" name="selected_items[]" value="<?php echo htmlspecialchars($item["cart_id"]);  ?>" class="mt-2 accent-[#8a7f6e]">
                         <label for="select-<?php echo $key; ?>" class="text-sm text-gray-700">Add to checkout</label>
                       </div>                      
                     </div>
@@ -83,7 +83,8 @@
         </div>
       </section>
           </div>
-  </div>
+    </div>
+  </form>
 </div>
 </main>
 
