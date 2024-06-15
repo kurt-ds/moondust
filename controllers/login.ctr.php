@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
   try {
     require_once './model/user.model.php';
+    require_once "./model/cart.model.php";
     //Error handlers
     $errors = [];
     if (is_input_empty($username, $pwd)) {
@@ -52,6 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         header('Location: /login?login=failed');
         die();
     }
+
+
+    $cart = get_cart_by_id($pdo, $result['user_id']);
+    $_SESSION['cart'] = $cart;
 
     $newSessionID = session_create_id();
     $sessionID = $newSessionID . "_" . $result['user_id'];

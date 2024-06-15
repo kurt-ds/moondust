@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
   try {
     require_once './model/user.model.php';
+    require_once "./model/cart.model.php";
     //ERROR HANDLERS
     
     $errors = [];
@@ -94,6 +95,9 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     $newSessionID = session_create_id();
     $sessionID = $newSessionID . "_" . $result['user_id'];
     session_id($sessionID);
+
+    $cart = get_cart_by_id($pdo, $result['user_id']);
+    $_SESSION['cart'] = $cart;
 
     $_SESSION['user_id'] = $result['user_id'];
     $_SESSION['user_username'] = htmlspecialchars($result['username']);

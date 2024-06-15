@@ -39,3 +39,13 @@ CREATE TABLE inventory_item (
     FOREIGN KEY (product_id) REFERENCES product(product_id)
 );
 
+CREATE TABLE cart_item (
+	cart_id INT PRIMARY KEY AUTO_INCREMENT,
+    product_id INT NOT NULL,
+    user_id INT NOT NULL,
+    variation VARCHAR(35) NOT NULL,
+    quantity INT NOT NULL,
+    total_price INT NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES product(product_id),
+    FOREIGN KEY (user_id) REFERENCES user(user_id)
+);
