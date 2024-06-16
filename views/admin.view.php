@@ -81,7 +81,7 @@
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo htmlspecialchars($product["quantity"]); ?></td>
 
                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                      <a href="/products/<?php echo htmlspecialchars($product["product_id"]); ?>/edit" class="text-[#AEA089]">View<span class="sr-only">, <?php echo htmlspecialchars($product["product_name"]); ?></span></a>
+                      <a href="/products/<?php echo htmlspecialchars($product["product_id"]); ?>/edit" class="text-[#AEA089]">Edit<span class="sr-only">, <?php echo htmlspecialchars($product["product_name"]); ?></span></a>
                       <form class="inline" action="/products/<?php echo htmlspecialchars($product["product_id"]);?>" method="POST">
                       <input type="hidden" name="_method" value="delete" />
                         <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product["product_id"]); ?>">
