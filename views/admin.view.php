@@ -1,31 +1,6 @@
 <?php require 'partials/head.php' ?>
 <?php require 'partials/navbar.php'; ?>
 
-<?php
-
-// dummy data invoice
-$invoices = [
-  [
-      'order_date' => '2024-06-01',
-      'total_price' => '150.00',
-      'order_items' => [
-          'Product A - 2 units',
-          'Product B - 1 unit',
-          'Product C - 3 units',
-      ],
-      'status' => 'Paid',
-  ],
-  [
-      'order_date' => '2024-06-05',
-      'total_price' => '300.00',
-      'order_items' => [
-          'Product D - 5 units',
-          'Product E - 2 units',
-      ],
-      'status' => 'Cancelled',
-  ]
-];
-?>
 
 <main class="my-32">
   <div class="container mx-auto">
@@ -135,6 +110,7 @@ $invoices = [
             <table class="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-0">Customer Username</th>
                   <th scope="col" class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-0">Order Date</th>
                   <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Total Price</th>
                   <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Order Items</th>
@@ -142,18 +118,19 @@ $invoices = [
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200 text-center">
-                <?php foreach ($invoices as $invoice) { ?>
+                <?php foreach ($orders as $order) { ?>
                   <tr>
-                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0"><?php echo htmlspecialchars($invoice["order_date"]); ?></td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo htmlspecialchars($invoice["total_price"]); ?></td>
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0"><?php echo htmlspecialchars($order["username"]); ?></td>
+                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0"><?php echo htmlspecialchars($order["order_date"]); ?></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">₱<?php echo htmlspecialchars($order["order_total"]); ?></td>
                     <td class="px-3 py-4 text-sm text-gray-500">
                       <ul class="list-disc list-inside">
-                        <?php foreach ($invoice["order_items"] as $item) { ?>
-                          <li><?php echo htmlspecialchars($item); ?></li>
+                        <?php foreach ($order["order_items"] as $item) { ?>
+                          <li><?php echo htmlspecialchars($item['product_name']); ?> - <?php echo htmlspecialchars($item['quantity']); ?> units</li>
                         <?php } ?>
                       </ul>
                     </td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo htmlspecialchars($invoice["status"]); ?></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo htmlspecialchars($order["status"]); ?></td>
                   </tr>
                 <?php } ?>
               </tbody>

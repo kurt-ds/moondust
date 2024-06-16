@@ -42,3 +42,27 @@ function set_order_item(object $pdo, array $data, $order_id) {
 
   $stmt->execute();
 }
+
+function get_all_orders(object $pdo) {
+  $query = "SELECT o.order_id, u.username, o.order_date, o.order_total, s.name as status
+FROM c_order AS o
+LEFT JOIN order_status as s ON o.status = s.status_id
+LEFT JOIN user as u ON o.user_id = u.user_id;";
+  $stmt = $pdo->prepare($query);
+  
+  $stmt->execute();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function get_order_items(object $pdo, $order_id) {
+  $query = "SELECT p.product_name, oi.quantity 
+FROM order_item as oi
+JOIN product as p ON oi.product_id = p.product_id
+WHERE oi.order_id = :order_id;";
+  $stmt = $pdo->prepare($query);
+  $stmt->bindParam(":order_id", $order_id);
+  $stmt->execute();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
