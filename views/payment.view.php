@@ -19,7 +19,7 @@
                         </h3>                      
                       </div>
                       <p class="text-sm text-gray-500"><?php echo $cart_item['variation']; ?></p>
-    
+                      <p class="text-sm text-gray-500">Quantity: <?php echo $cart_item['quantity']; ?></p>
                       <p class="mt-1 text-sm font-medium text-gray-900">Unit Price: ₱<?php echo number_format($cart_item['unit_price'], 2); ?></p>
                       <p class="mt-1 text-sm font-medium text-gray-900">Total Price: ₱<?php echo number_format($cart_item['total_price'], 2); ?></p>
                     </div>
@@ -32,8 +32,9 @@
   <form action="/order" method='post'>
     <h1>Payment Method</h1>
     <p>Cash On Delivery</p>
+    <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
     <?php foreach($cart_items as $cart_item) { ?>
-      <input type="hidden" name="order_items[]" value="<?php echo $cart_item['cart_id']; ?>">
+      <input type="hidden" name="cart_items[]" value="<?php echo $cart_item['cart_id']; ?>">
     <?php } ?>
     <p>Subtotal (<?php echo htmlspecialchars($count) ?> items)   ₱<?php echo htmlspecialchars($subtotal) ?></p>
     <p>Shipping  ₱<?php echo htmlspecialchars($shipping_fee) ?></p>

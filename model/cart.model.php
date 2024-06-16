@@ -19,6 +19,7 @@ function set_cart(object $pdo, array $data) {
 
   $stmt->execute();
 }
+
 function get_cart(object $pdo, $cart_id) {
   $query = "SELECT * FROM cart_item WHERE cart_id = :cart_id";
   $stmt = $pdo->prepare($query);

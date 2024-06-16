@@ -235,3 +235,20 @@ function delete_inventory(object $pdo, $product_id) {
 
   $stmt->fetch(PDO::FETCH_ASSOC);
 }
+
+
+// function update_inventory(object $pdo, array $data. $quantity) {
+//   $product = get_product_by_id($pdo, $data['product_id']);
+//   $quantity = get_quantity_by_id($pdo, $data['product_id']);
+//   $new_quantity = $quantity['quantity'] - $data['quantity'];
+//   $total_price = $new_quantity * $product['unit_price'];
+//   $query = "UPDATE inventory_item SET quantity = quantity - :quantity, total_price = :total_price WHERE product_id = :product_id;";
+//   $stmt = $pdo->prepare($query);
+
+//   $stmt->bindParam(":product_id", $product_id);
+//   $stmt->bindParam(":quantity", $new_quantity);
+//   $stmt->bindParam(":total_price", $total_price);
+//   $stmt->execute();
+
+//   $stmt->fetch(PDO::FETCH_ASSOC);
+// }
