@@ -15,6 +15,9 @@ function is_input_empty($data): bool {
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   require "views/order.view.php";
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if (!isLoggedIn()) {
+    header("Location: /login");
+  }
   try {
     require_once "./model/cart.model.php";
     require_once "./model/order.model.php";

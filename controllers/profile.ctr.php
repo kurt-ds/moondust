@@ -10,6 +10,9 @@ function get_user_by_id($pdo, $userId) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (!isLoggedIn()) {
+        header("Location: /login");
+    }
     try {
         require_once "./model/user.model.php";
         require_once "./model/order.model.php";

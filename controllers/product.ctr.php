@@ -6,6 +6,9 @@ $product_id = $params['product_id'];
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+  if (!isLoggedIn()) {
+    header("Location: /login");
+  }
   try {
     require_once './model/product.model.php';
 

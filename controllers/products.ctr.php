@@ -2,6 +2,11 @@
 
 $heading = "Products";
 
+if (!isLoggedIn) {
+    header("Location: /login");
+    die();
+}
+
 function is_input_empty($data): bool {
   forEach ($data as $key => $value) {
       if (!isset($data[$key]) || strlen($data[$key]) === 0) {
@@ -10,6 +15,7 @@ function is_input_empty($data): bool {
   }
   return false;
 }
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
