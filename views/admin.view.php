@@ -1,6 +1,5 @@
-<?php require 'partials/head.php' ?>
+<?php require 'partials/head.php'; ?>
 <?php require 'partials/navbar.php'; ?>
-
 
 <main class="my-32">
   <div class="container mx-auto">
@@ -11,33 +10,27 @@
           <div class="bg-[#AEA089] px-4 py-6 sm:px-6 lg:px-8 rounded-lg">
             <p class="text-sm font-medium leading-6 text-white">Number of Users</p>
             <p class="mt-2 flex items-baseline gap-x-2">
-
               <span class="text-4xl font-semibold tracking-tight text-white"><?php echo $userCount; ?></span>
-        
-
             </p>
           </div>
           <div class="bg-[#AEA089] px-4 py-6 sm:px-6 lg:px-8 rounded-lg">
             <p class="text-sm font-medium leading-6 text-white">Number of Products</p>
             <p class="mt-2 flex items-baseline gap-x-2">
-
               <span class="text-4xl font-semibold tracking-tight text-white"><?php echo $product_count; ?></span>
-
-
             </p>
           </div>
           <div class="bg-[#AEA089] px-4 py-6 sm:px-6 lg:px-8 rounded-lg">
             <p class="text-sm font-medium leading-6 text-white">Total Sales</p>
             <p class="mt-2 flex items-baseline gap-x-2">
-              <span class="text-4xl font-semibold tracking-tight text-white">₱3,000</span>
+              <span class="text-4xl font-semibold tracking-tight text-white">₱<?php echo number_format($total_sales, 2); ?></span>
             </p>
           </div>
           <div class="bg-[#AEA089] px-4 py-6 sm:px-6 lg:px-8 rounded-lg">
             <p class="text-sm font-medium leading-6 text-white">Total Orders</p>
             <p class="mt-2 flex items-baseline gap-x-2">
-              <span class="text-4xl font-semibold tracking-tight text-white">69</span>
+              <span class="text-4xl font-semibold tracking-tight text-white"><?php echo $total_orders; ?></span>
             </p>
-          </div>          
+          </div>
         </div>
       </div>
     </div>
@@ -77,13 +70,11 @@
                     <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900"><?php echo htmlspecialchars($product["product_name"]); ?></td>
                     <td class="px-3 py-4 text-sm text-gray-500 w-[30rem]"><?php echo htmlspecialchars($product["product_desc"]); ?></td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">₱<?php echo htmlspecialchars($product["unit_price"]); ?></td>
-
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo htmlspecialchars($product["quantity"]); ?></td>
-
                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                       <a href="/products/<?php echo htmlspecialchars($product["product_id"]); ?>/edit" class="text-[#AEA089]">Edit<span class="sr-only">, <?php echo htmlspecialchars($product["product_name"]); ?></span></a>
-                      <form class="inline" action="/products/<?php echo htmlspecialchars($product["product_id"]);?>" method="POST">
-                      <input type="hidden" name="_method" value="delete" />
+                      <form class="inline" action="/products/<?php echo htmlspecialchars($product["product_id"]); ?>" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                        <input type="hidden" name="_method" value="delete" />
                         <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product["product_id"]); ?>">
                         <button type="submit" class="text-red-600 hover:text-red-900 ml-4">Delete</button>
                       </form>
@@ -120,7 +111,7 @@
               <tbody class="divide-y divide-gray-200 text-center">
                 <?php foreach ($orders as $order) { ?>
                   <tr>
-                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0"><?php echo htmlspecialchars($order["username"]); ?></td>
+                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0"><?php echo htmlspecialchars($order["username"]); ?></td>
                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0"><?php echo htmlspecialchars($order["order_date"]); ?></td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">₱<?php echo htmlspecialchars($order["order_total"]); ?></td>
                     <td class="px-3 py-4 text-sm text-gray-500">
@@ -140,8 +131,4 @@
       </div>
     </div>
   </div>
-
-
-
 </main>
-

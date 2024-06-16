@@ -45,10 +45,6 @@
                     <time datetime="<?php echo $order['order_date']; ?>"><?php echo date('F d, Y', strtotime($order['order_date'])); ?></time>
                   </dd>
                 </div>
-                <div class="flex justify-between pt-6 sm:block sm:pt-0">
-                  <dt class="font-medium text-gray-900">Order number</dt>
-                  <dd class="sm:mt-1"><?php echo $order['order_id']; ?></dd>
-                </div>
                 <div class="flex justify-between pt-6 font-medium text-gray-900 sm:block sm:pt-0">
                   <dt>Total amount</dt>
                   <dd class="sm:mt-1">₱<?php echo $order['order_total']; ?></dd>
@@ -70,7 +66,6 @@
                   <th scope="col" class="hidden w-1/5 py-3 pr-8 font-normal sm:table-cell">Quantity</th>
                   <th scope="col" class="hidden w-1/5 py-3 pr-8 font-normal sm:table-cell">Unit Price</th>
                   <th scope="col" class="hidden w-1/5 py-3 pr-8 font-normal sm:table-cell">Order Price</th>
-                  <th scope="col" class="w-0 py-3 text-right font-normal">Info</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200 border-b border-gray-200 text-sm sm:border-t">
@@ -78,16 +73,12 @@
                   <tr>
                     <td class="py-6 pr-8">
                       <div class="flex items-center">
-                        <img src="https://dummyimage.com/100x100" alt="Product Image" class="mr-6 h-16 w-16 rounded object-cover object-center">
                         <h3 class="font-medium text-gray-900"><?php echo $item['product_name']; ?></h3>
                       </div>
                     </td>
                     <td class="hidden py-6 pr-8 sm:table-cell"><?php echo $item['quantity']; ?></td>
                     <td class="hidden py-6 pr-8 sm:table-cell">₱<?php echo $item['unit_price']; ?></td>
                     <td class="hidden py-6 pr-8 sm:table-cell">₱<?php echo $item['order_price']; ?></td>
-                    <td class="whitespace-nowrap py-6 text-right font-medium">
-                      <a href="#" class="text-[#AEA089]">View<span class="hidden lg:inline"> Product</span><span class="sr-only">, <?php echo $item; ?></span></a>
-                    </td>
                   </tr>
                 <?php endforeach; ?>
               </tbody>
