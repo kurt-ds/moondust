@@ -12,10 +12,15 @@ function get_user_by_id($pdo, $userId) {
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
         require_once "./model/user.model.php";
+        require_once "./model/order.model.php";
 
         // Assuming you have a function to retrieve user information by user ID
         $userId = $_SESSION['user_id']; // Assuming you store the user ID in the session
         $user = get_user_by_id($pdo, $userId); // Modify this function based on your database schema
+        $orders = get_orders_by_user($pdo, $userId);
+        foreach($orders as $key => $order) {
+            $orders[$key]['order_items'] = get_order_items($pdo, $order['order_id']);
+          }
 
         require "views/profile.view.php";
         $pdo = null;

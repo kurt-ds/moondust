@@ -1,32 +1,6 @@
 <?php require 'partials/head.php'; ?>
 <?php require 'partials/navbar.php'; ?>
 
-<?php
-// dummy data orders
-$orders = [
-  [
-      'order_date' => '2024-06-01',
-      'total_price' => '275.00',
-      'order_items' => [
-    ['product_name' => 'Stellar Powder Tint ', 'quantity' => 2, 'unit_price' => 75.00],
-    ['product_name' => 'Moonstone Kiss lip oil', 'quantity' => 1, 'unit_price' => 150.00],
-    ['product_name' => 'Callisto Lip Paint ', 'quantity' => 3, 'unit_price' => 50.00],
-      ],
-      'status' => 'Paid',
-      'order_number' => '1234567890',
-  ],
-  [
-    'order_date' => '2024-06-01',
-    'total_price' => '100.00',
-    'order_items' => [
-        ['product_name' => 'Product A', 'quantity' => 2, 'unit_price' => 50.00],
-        ['product_name' => 'Product B', 'quantity' => 1, 'unit_price' => 50.00],
-    ],
-    'status' => 'Paid',
-    'order_number' => '1234567890',
-  ],
-];
-?>
 
 <main class="profile my-32 min-h-[600px]">
   <div class="container mx-auto">
@@ -73,11 +47,15 @@ $orders = [
                 </div>
                 <div class="flex justify-between pt-6 sm:block sm:pt-0">
                   <dt class="font-medium text-gray-900">Order number</dt>
-                  <dd class="sm:mt-1"><?php echo $order['order_number']; ?></dd>
+                  <dd class="sm:mt-1"><?php echo $order['order_id']; ?></dd>
                 </div>
                 <div class="flex justify-between pt-6 font-medium text-gray-900 sm:block sm:pt-0">
                   <dt>Total amount</dt>
-                  <dd class="sm:mt-1">₱<?php echo $order['total_price']; ?></dd>
+                  <dd class="sm:mt-1">₱<?php echo $order['order_total']; ?></dd>
+                </div>
+                <div class="flex justify-between pt-6 font-medium text-gray-900 sm:block sm:pt-0">
+                  <dt>Order Status</dt>
+                  <dd class="sm:mt-1"><?php echo $order['status']; ?></dd>
                 </div>
               </dl>
             </div>
@@ -91,7 +69,7 @@ $orders = [
                   <th scope="col" class="py-3 pr-8 font-normal sm:w-2/5 lg:w-1/3">Product</th>
                   <th scope="col" class="hidden w-1/5 py-3 pr-8 font-normal sm:table-cell">Quantity</th>
                   <th scope="col" class="hidden w-1/5 py-3 pr-8 font-normal sm:table-cell">Unit Price</th>
-                  <th scope="col" class="hidden py-3 pr-8 font-normal sm:table-cell">Status</th>
+                  <th scope="col" class="hidden w-1/5 py-3 pr-8 font-normal sm:table-cell">Order Price</th>
                   <th scope="col" class="w-0 py-3 text-right font-normal">Info</th>
                 </tr>
               </thead>
@@ -106,7 +84,7 @@ $orders = [
                     </td>
                     <td class="hidden py-6 pr-8 sm:table-cell"><?php echo $item['quantity']; ?></td>
                     <td class="hidden py-6 pr-8 sm:table-cell">₱<?php echo $item['unit_price']; ?></td>
-                    <td class="hidden py-6 pr-8 sm:table-cell"><?php echo $order['status']; ?></td>
+                    <td class="hidden py-6 pr-8 sm:table-cell">₱<?php echo $item['order_price']; ?></td>
                     <td class="whitespace-nowrap py-6 text-right font-medium">
                       <a href="#" class="text-[#AEA089]">View<span class="hidden lg:inline"> Product</span><span class="sr-only">, <?php echo $item; ?></span></a>
                     </td>

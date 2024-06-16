@@ -56,12 +56,25 @@ LEFT JOIN user as u ON o.user_id = u.user_id;";
 }
 
 function get_order_items(object $pdo, $order_id) {
-  $query = "SELECT p.product_name, oi.quantity 
+  $query = "SELECT p.product_name, p.unit_price, oi.quantity, p.unit_price * oi.quantity AS order_price
 FROM order_item as oi
 JOIN product as p ON oi.product_id = p.product_id
 WHERE oi.order_id = :order_id;";
   $stmt = $pdo->prepare($query);
   $stmt->bindParam(":order_id", $order_id);
+  $stmt->execute();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function get_orders_by_user(object $pdo, $user_id) {
+  $query = "SELECT o.order_id, u.username, o.order_date, o.order_total, s.name as status
+FROM c_order AS o
+LEFT JOIN order_status as s ON o.status = s.status_id
+LEFT JOIN user as u ON o.user_id = u.user_id
+WHERE o.user_id = :user_id;";
+  $stmt = $pdo->prepare($query);
+  $stmt->bindParam(":user_id", $user_id);
   $stmt->execute();
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return $result;
