@@ -3,7 +3,7 @@
 
 <main class="cart">
   <div class="min-h-screen">
-    <div class="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div class="mx-auto max-w-2xl pb-24 pt-16 lg:max-w-7xl">
       <h1 class="text-3xl font-bold tracking-tight text-[#AEA089] sm:text-4xl">Your Cart</h1>
       <?php if (empty($cart_items)) : ?>
         <p class="text-center py-40 text-3xl text-gray-600 mt-4">Your cart is empty.</p>
