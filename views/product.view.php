@@ -43,7 +43,7 @@
         <p class="text-[#1E1E1E] text-xl mt-4"><?php echo htmlspecialchars($product['product_desc']); ?></p>
         <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product_id) ?>">
         <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_SESSION['user_id']) ?>">
-        <div class="mb-6">
+        <div class="flex items-end gap-4 max-w-[50%] mt-4 mb-6">
             <label for="quantity" class="block text-xl mb-2 font-medium text-gray-700">Quantity</label>
             <input type="number" name="quantity" id="quantity" placeholder="Quantity" class="w-full text-xl px-4 py-2 mt-1 rounded-md border bg-transparent placeholder-[#AEA089] border-[#AEA089] focus:outline-[#AEA089]" required>
           </div>

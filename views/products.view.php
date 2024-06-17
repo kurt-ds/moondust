@@ -2,7 +2,7 @@
 <?php require 'partials/navbar.php'; ?>
 
 <main>
-  <div class="products-listing my-32">
+  <div class="products-listing my-32 mb-60">
     <div class="container mx-auto">
       <h1 class="text-6xl font-bold text-[#AEA089]">All Products:</h1>
       <div class="grid grid-cols-4 gap-6 mt-10">

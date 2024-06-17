@@ -2,23 +2,23 @@
   <div class="container mx-auto">
     <div class="flex justify-between items-center">
       <div>
-        <img src="../public/img/logo/logo-moondust.png" alt="moondust logo">
+        <img src="/public/img/logo/logo-moondust.png" alt="moondust logo">
         <p class="text-lg mt-2 text-black/80">© moondust. 2024 all rights reserved.</p>
       </div>
       <ul class="flex flex-row items-center gap-8">
           <li>
           <a href="/">
-            <img src="../public/img/icons/tiktok.svg" alt="">
+            <img src="/public/img/icons/tiktok.svg" alt="">
           </a>
           </li>
           <li>
           <a href="/">
-            <img src="../public/img/icons/instagram.svg" alt="">
+            <img src="/public/img/icons/instagram.svg" alt="">
           </a>
           </li>
           <li>
           <a href="/">
-            <img src="../public/img/icons/facebook.svg" alt="">
+            <img src="/public/img/icons/facebook.svg" alt="">
           </a>
           </li>                    
       </ul>
