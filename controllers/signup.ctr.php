@@ -36,12 +36,14 @@ function is_username_taken(object $pdo, string $username) {
 }
 
 
+if (isLoggedIn()) {
+  header('Location: /products?error=alreadyLoggedIn');
+}
 
 
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
   require "views/signup.view.php";
-
 } elseif ($_SERVER['REQUEST_METHOD'] === "POST") {
   $username = $_POST['username'];
   $email = $_POST['email'];
@@ -54,7 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     'email' => $email,
     'pwd'=> $pwd,
     'contact_no' => $contact_no,
-    'address' => $address
+    'address' => $address,
+    'role_id' => 1
   ];
 
   try {
@@ -91,6 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     create_user($pdo, $data);
 
     $result = get_user($pdo, $username);
+    $role = get_role($pdo, $result['user_id']);
+    $_SESSION['role'] = $role['role_name'];
 
     $newSessionID = session_create_id();
     $sessionID = $newSessionID . "_" . $result['user_id'];

@@ -2,6 +2,10 @@
 
 $heading = "ADMIN PAGE";
 
+if (isLoggedIn() && !isAdmin()) {
+  header('Location: /products?error=notAdmin');
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   try {
     require_once "./model/product.model.php";

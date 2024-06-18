@@ -24,6 +24,9 @@ function is_password_wrong($pwd, $hashedPwd) {
   }
 }
 
+if (isLoggedIn()) {
+    header('Location: /products?error=alreadyLoggedIn');
+}
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
   require "views/login.view.php";
@@ -56,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
 
     $cart = get_cart_by_id($pdo, $result['user_id']);
-    $_SESSION['cart'] = $cart;
+    $role = get_role($pdo, $result['user_id']);
 
     $newSessionID = session_create_id();
     $sessionID = $newSessionID . "_" . $result['user_id'];
@@ -65,6 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     $_SESSION['user_id'] = $result['user_id'];
     $_SESSION['user_username'] = htmlspecialchars($result['username']);
     $_SESSION['last_regeneration'] = time();
+    $_SESSION['cart'] = $cart;
+    $_SESSION['role'] = $role['role_name'];
 
     header('Location: /products?login=success');
     $pdo = null;

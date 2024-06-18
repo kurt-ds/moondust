@@ -2,13 +2,24 @@ CREATE DATABASE moondust;
 
 USE moondust;
 
+CREATE TABLE role (
+  role_id INT PRIMARY KEY AUTO_INCREMENT,
+  role_name VARCHAR(35) NOT NULL
+);
+
+INSERT INTO role VALUES
+(1, 'user'),
+(2, 'admin');
+
 CREATE TABLE user (
 	user_id INT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(100) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    pwd VARCHAR(255) NOT NULL,
-   	contact_no VARCHAR(35) NOT NULL,
-    address VARCHAR(255) NOT NULL
+  username VARCHAR(100) NOT NULL UNIQUE,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  pwd VARCHAR(255) NOT NULL,
+  contact_no VARCHAR(35) NOT NULL UNIQUE,
+  address VARCHAR(255) NOT NULL,
+  role_id INT NOT NULL,
+  FOREIGN KEY (role_id) REFERENCES role(role_id)
 );
 
 CREATE TABLE product (

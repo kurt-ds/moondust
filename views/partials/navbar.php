@@ -8,8 +8,13 @@
                         <a class="text-lg text-[#1E1E1E]" href="/">Home</a>
                     </li>
                     <li>
-                        <a class="text-lg text-[#1E1E1E]" href="/products">Products</a>
-                    </li>                                
+                        <a class="text-lg text-[#1E1E1E]" href="/products">Products     </a>
+                    </li>
+                    <?php if (isLoggedIn() && isAdmin()) { ?>
+                        <li>
+                            <a class="text-lg text-[#1E1E1E]" href="/admin">Dashboard</a>
+                        </li>
+                    <?php } ?>
                 </ul>
             </nav>
             <div class="flex gap-4">
