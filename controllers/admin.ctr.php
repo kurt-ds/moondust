@@ -2,6 +2,10 @@
 
 $heading = "ADMIN PAGE";
 
+if (!isLoggedIn()) {
+  header('Location: /products?error=notAdmin');
+}
+
 if (isLoggedIn() && !isAdmin()) {
   header('Location: /products?error=notAdmin');
 }
