@@ -128,7 +128,7 @@ function get_images_by_id(object $pdo, $product_id) {
 }
 
 function get_variations_by_id(object $pdo, $product_id) {
-  $query = "SELECT variation_name, color FROM variation WHERE product_id = :product_id;";
+  $query = "SELECT * FROM variation WHERE product_id = :product_id;";
   $stmt = $pdo->prepare($query);
 
   $stmt->bindParam(":product_id", $product_id);

@@ -32,9 +32,9 @@
       <form action="/cart" method='post'>
         <div class="flex flex-col gap-2">
           <label class="text-xl text-[#AEA082] mt-2 font-bold" for="variation">Color:</label>
-          <select name='variation' class="w-[350px] text-[#AEA082] cursor-pointer py-4 rounded-full pl-4 bg-transparent border border-[#AEA082] appearance-none">
+          <select name='variation_id' class="w-[350px] text-[#AEA082] cursor-pointer py-4 rounded-full pl-4 bg-transparent border border-[#AEA082] appearance-none">
             <?php foreach ($variations as $variation) { ?>
-              <option value="<?php echo htmlspecialchars($variation['variation_name']); ?>" data-color="<?php echo htmlspecialchars($variation['color']); ?>">
+              <option value="<?php echo htmlspecialchars($variation['variation_id']); ?>" data-color="<?php echo htmlspecialchars($variation['color']); ?>">
                 <?php echo htmlspecialchars($variation['variation_name']); ?>
               </option>
             <?php } ?>

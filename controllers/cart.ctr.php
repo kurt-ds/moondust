@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } catch (PDOException $e) {
     die("Query failed: " . $e->GetMessage());
 }
-} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['_method'] == 'delete') {
+} else if (($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['_method'])) && $_POST['_method'] == 'delete') {
   $cart_id = $_POST['cart_id'];
   try {
     require_once "./model/cart.model.php";
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   } catch (PDOException $e) {
       die("Query failed: " . $e->GetMessage());
   }
-} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['_method'] == 'put') {
+} else if (($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['_method'])) && $_POST['_method'] == 'put') {
   try {
     require_once "./model/cart.model.php";
     require_once "./model/product.model.php";
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   }
 } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-  $variation = $_POST['variation'];
+  $variation_id = $_POST['variation_id'];
   $product_id = $_POST['product_id'];
   $user_id = $_POST['user_id'];
   $quantity = $_POST['quantity'];
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $data = [
         'product_id' => $product_id,
         'user_id' => $user_id,
-        'variation' => $variation,
+        'variation_id' => $variation_id,
         'quantity' => $quantity,
         'total_price' => $total_price
     ];

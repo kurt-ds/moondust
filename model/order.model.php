@@ -32,12 +32,12 @@ function get_order(object $pdo, $order_id) {
 }
 
 function set_order_item(object $pdo, array $data, $order_id) {
-  $query = "INSERT INTO order_item (order_id, product_id, variation, quantity) VALUES (:order_id, :product_id, :variation, :quantity)";
+  $query = "INSERT INTO order_item (order_id, product_id, variation_id, quantity) VALUES (:order_id, :product_id, :variation_id, :quantity)";
   $stmt = $pdo->prepare($query);
 
   $stmt->bindParam(":order_id", $order_id);
   $stmt->bindParam(":product_id", $data['product_id']);
-  $stmt->bindParam(":variation", $data['variation']);
+  $stmt->bindParam(":variation_id", $data['variation_id']);
   $stmt->bindParam(":quantity", $data['quantity']);
 
   $stmt->execute();
