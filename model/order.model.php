@@ -68,7 +68,7 @@ WHERE oi.order_id = :order_id;";
 }
 
 function get_orders_by_user(object $pdo, $user_id) {
-  $query = "SELECT o.order_id, u.username, o.order_date, o.order_total, s.name as status
+  $query = "SELECT o.order_id, u.username, o.status as status_id, o.order_date, o.order_total, s.name as status
 FROM c_order AS o
 LEFT JOIN order_status as s ON o.status = s.status_id
 LEFT JOIN user as u ON o.user_id = u.user_id
@@ -85,6 +85,16 @@ function remove_order_variation(object $pdo, $variation_id) {
   $stmt = $pdo->prepare($query);
 
   $stmt->bindParam(":variation_id", $variation_id);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function cancel_order(object $pdo, $order_id) {
+  $query = "UPDATE c_order SET status = 11 WHERE order_id = :order_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":order_id", $order_id);
   $stmt->execute();
 
   $stmt->fetch(PDO::FETCH_ASSOC);

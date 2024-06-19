@@ -9,10 +9,11 @@ function get_user_by_id($pdo, $userId) {
     return $user;
 }
 
+if (!isLoggedIn()) {
+    header("Location: /login");
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (!isLoggedIn()) {
-        header("Location: /login");
-    }
     try {
         require_once "./model/user.model.php";
         require_once "./model/order.model.php";
@@ -31,5 +32,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     } catch (PDOException $e) {
         die("Query failed: " . $e->GetMessage());
     }
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    try {
+        require_once "./model/order.model.php";
+
+
+        $order_id = $_POST['order_id'];
+
+        cancel_order($pdo, $order_id);
+
+        header("Location: /profile"); 
+        $pdo = null;
+        $stmt = null;
+    } catch (PDOException $e) {
+        die("Query failed: " . $e->GetMessage());
+    }
+
 }
 ?>
