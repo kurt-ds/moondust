@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $product_count = get_product_count($pdo);
     $userCount = get_users($pdo);
     $orders = get_all_orders($pdo);
+    $statuses = get_order_status($pdo);
 
     $total_sales = 0;
     $total_orders = count($orders);
@@ -30,6 +31,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     require "views/admin.view.php";
+    $pdo = null;
+    $stmt = null;
+  } catch (PDOException $e) {
+    die("Query failed: " . $e->getMessage());
+  }
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  try {
+    require_once "./model/order.model.php";
+    $status_id = $_POST['status_id'];
+    $order_id = $_POST['order_id'];
+    
+    update_order_status($pdo, $order_id, $status_id);
+
+    header('Location: /admin?status=success');
     $pdo = null;
     $stmt = null;
   } catch (PDOException $e) {

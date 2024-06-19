@@ -44,7 +44,7 @@ function set_order_item(object $pdo, array $data, $order_id) {
 }
 
 function get_all_orders(object $pdo) {
-  $query = "SELECT o.order_id, u.username, o.order_date, o.order_total, s.name as status
+  $query = "SELECT o.order_id, u.username, o.status as status_id , o.order_date, o.order_total, s.name as status
 FROM c_order AS o
 LEFT JOIN order_status as s ON o.status = s.status_id
 LEFT JOIN user as u ON o.user_id = u.user_id;";
@@ -95,6 +95,25 @@ function cancel_order(object $pdo, $order_id) {
   $stmt = $pdo->prepare($query);
 
   $stmt->bindParam(":order_id", $order_id);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function get_order_status(object $pdo) {
+  $query = "SELECT status_id, name FROM order_status;";
+  $stmt = $pdo->prepare($query);
+  $stmt->execute();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
+function update_order_status(object $pdo, $order_id, $status_id) {
+  $query = "UPDATE c_order SET status = :status_id WHERE order_id = :order_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":order_id", $order_id);
+  $stmt->bindParam(":status_id", $status_id);
   $stmt->execute();
 
   $stmt->fetch(PDO::FETCH_ASSOC);

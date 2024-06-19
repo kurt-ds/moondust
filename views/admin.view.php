@@ -121,7 +121,19 @@
                         <?php } ?>
                       </ul>
                     </td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo htmlspecialchars($order["status"]); ?></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <form action="/admin" method="post">
+                        <input type="hidden" name="order_id" value="<?php echo htmlspecialchars($order['order_id']); ?>">
+                        <select name='status_id' >
+                          <?php foreach ($statuses as $status) { ?>
+                            <option value="<?php echo htmlspecialchars($status['status_id']); ?>" <?php if ($status['status_id'] == $order['status_id']) { echo 'selected'; } ?> >
+                              <?php echo htmlspecialchars($status['name']); ?>
+                            </option>
+                          <?php } ?>
+                        </select>
+                        <button type='submit'>Update Status</button>
+                      </form>
+                    </td>
                   </tr>
                 <?php } ?>
               </tbody>
