@@ -15,12 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     require_once "./model/product.model.php";
     require_once "./model/admin.model.php";
     require_once "./model/order.model.php";
+    require_once "./model/user.model.php";
 
     $products = get_all_admin_products($pdo);
     $product_count = get_product_count($pdo);
     $userCount = get_users($pdo);
     $orders = get_all_orders($pdo);
     $statuses = get_order_status($pdo);
+    $users = get_all_users($pdo);
 
     $total_sales = 0;
     $total_orders = count($orders);
@@ -36,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   } catch (PDOException $e) {
     die("Query failed: " . $e->getMessage());
   }
-} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists('status_id', $_POST) && array_key_exists('order_id', $_POST)) {
   try {
     require_once "./model/order.model.php";
     $status_id = $_POST['status_id'];
@@ -45,6 +47,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     update_order_status($pdo, $order_id, $status_id);
 
     header('Location: /admin?status=success');
+    $pdo = null;
+    $stmt = null;
+  } catch (PDOException $e) {
+    die("Query failed: " . $e->getMessage());
+  }
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists('user_id', $_POST)) {
+  try {
+    require_once "./model/user.model.php";
+    $user_id = $_POST['user_id'];
+
+    make_admin($pdo, $user_id);
+    
+    header('Location: /admin?makeAdmin=success');
     $pdo = null;
     $stmt = null;
   } catch (PDOException $e) {

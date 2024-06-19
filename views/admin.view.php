@@ -142,5 +142,45 @@
         </div>
       </div>
     </div>
+
+    <!-- Users Table -->
+    <div class="pt-20 border-t border-gray-200">
+      <div class="sm:flex sm:items-center">
+        <div class="sm:flex-auto">
+          <h1 class="text-3xl font-semibold leading-6 text-[#AEA089]">User Management</h1>
+          <p class="mt-4 text-sm text-gray-700">A list of users to make them admin emerut.</p>
+        </div>
+      </div>
+      <div class="mt-8 flow-root">
+        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+            <table class="min-w-full divide-y divide-gray-300">
+              <thead>
+                <tr>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-0">Customer Username</th>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-0">Role</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 text-center">
+                <?php foreach ($users as $user) { ?>
+                    <tr>
+                      <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0"><?php echo htmlspecialchars($user["username"]); ?></td>
+                      <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0"><?php echo htmlspecialchars($user["role_name"]); ?></td>
+                      <?php if ($user['role_id'] != 2) { ?>
+                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0">
+                          <form action="/admin" method='post'>
+                            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user["user_id"]); ?>">
+                            <button type="submit" >Make Admin</button>
+                          </form>
+                        </td>
+                      <?php } ?>
+                    </tr>
+                <?php } ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </main>

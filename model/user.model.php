@@ -59,3 +59,23 @@ function get_role(object $pdo, $user_id) {
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     return $result;
 }
+
+function get_all_users(object $pdo) {
+    $query = "SELECT u.user_id, u.username, r.role_id, r.role_name FROM user as u
+LEFT JOIN role as r ON u.role_id = r.role_id;";
+    $stmt = $pdo->prepare($query);
+
+
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function make_admin(object $pdo, $user_id) {
+    $query = "UPDATE user SET role_id = 2 WHERE user_id = :user_id";
+    $stmt = $pdo->prepare($query);
+
+    $stmt->bindParam(":user_id", $user_id);
+
+    $stmt->execute();
+}
