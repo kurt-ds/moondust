@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $user_id = $_POST['user_id'];
     $status = 1;
-    $order_total = $_POST['total_price'];
+    $order_total = $_POST['cart_total'];
     $cart_items = $_POST['cart_items'];
     $order_items = [];
 
@@ -47,12 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     //Update Inventory to new stock and new total_price
     foreach ($order_items as $order_item) {
-      $current_quantity = get_quantity_by_id($pdo, $order_item['product_id'])['quantity'];
-      if ($current_quantity < $order_item['quantity']) {
+      $current_quantity = get_quantity_by_id($pdo, $order_item['product_id'])['stock_available'];
+      if ($current_quantity < $order_item['cart_quantity']) {
         $errors['Stock Unavaialable'] = 'No stock available for that quantity!';
         break;
       }
-      $new_quantity = $current_quantity - $order_item['quantity'];
+      $new_quantity = $current_quantity - $order_item['cart_quantity'];
       update_quantity($pdo, $order_item['product_id'], $new_quantity);
     }
 

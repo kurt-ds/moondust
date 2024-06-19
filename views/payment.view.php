@@ -18,9 +18,9 @@
                   <h3 class="text-xl font-bold text-[#AEA089]"><?php echo $cart_item['product_name']; ?></h3>
                 </div>
                 <p class="text-sm text-gray-500"><?php echo $cart_item['variation']; ?></p>
-                <p class="text-lg font-medium text-gray-900 mt-4">Quantity: <?php echo $cart_item['quantity']; ?></p>
+                <p class="text-lg font-medium text-gray-900 mt-4">Quantity: <?php echo $cart_item['cart_quantity']; ?></p>
                 <p class="mt-1 text-lg font-medium text-gray-900">Unit Price: ₱<?php echo number_format($cart_item['unit_price'], 2); ?></p>
-                <p class="mt-1 text-lg font-medium text-gray-900">Total Price: ₱<?php echo number_format($cart_item['total_price'], 2); ?></p>
+                <p class="mt-1 text-lg font-medium text-gray-900">Total Price: ₱<?php echo number_format($cart_item['cart_total'], 2); ?></p>
               </div>
             </div>
           </div>
@@ -39,8 +39,8 @@
         <p class="text-lg font-medium text-gray-900">Subtotal (<?php echo htmlspecialchars($count); ?> items): ₱<?php echo htmlspecialchars($subtotal); ?></p>
         <p class="text-lg font-medium text-gray-900">Shipping: ₱<?php echo htmlspecialchars($shipping_fee); ?></p>
         <div class="mt-4">
-          <label for="total_price" class="text-lg font-medium text-gray-900">Total Price: ₱</label>
-          <input type="number" name="total_price" value="<?php echo htmlspecialchars($subtotal + $shipping_fee); ?>" readonly class="border-0 bg-white text-lg font-medium text-gray-900">
+          <label for="cart_total" class="text-lg font-medium text-gray-900">Total Price: ₱</label>
+          <input type="number" name="cart_total" value="<?php echo htmlspecialchars($subtotal + $shipping_fee); ?>" readonly class="border-0 bg-white text-lg font-medium text-gray-900">
         </div>
       </div>
       <button type="submit" class="mt-6 w-full rounded-md border border-transparent bg-[#AEA089] px-4 py-3 text-base font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50">Place Order</button>

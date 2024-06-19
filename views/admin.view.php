@@ -70,7 +70,7 @@
                     <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900"><?php echo htmlspecialchars($product["product_name"]); ?></td>
                     <td class="px-3 py-4 text-sm text-gray-500 w-[30rem]"><?php echo htmlspecialchars($product["product_desc"]); ?></td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">₱<?php echo htmlspecialchars($product["unit_price"]); ?></td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo htmlspecialchars($product["quantity"]); ?></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo htmlspecialchars($product["stock_available"]); ?></td>
                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                       <a href="/products/<?php echo htmlspecialchars($product["product_id"]); ?>/edit" class="text-[#AEA089]">Edit<span class="sr-only">, <?php echo htmlspecialchars($product["product_name"]); ?></span></a>
                       <form class="inline" action="/products/<?php echo htmlspecialchars($product["product_id"]); ?>" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
@@ -117,7 +117,7 @@
                     <td class="px-3 py-4 text-sm text-gray-500">
                       <ul class="list-disc list-inside">
                         <?php foreach ($order["order_items"] as $item) { ?>
-                          <li><?php echo htmlspecialchars($item['product_name']); ?> - <?php echo htmlspecialchars($item['quantity']); ?> units</li>
+                          <li><?php echo htmlspecialchars($item['product_name']); ?> - <?php echo htmlspecialchars($item['order_quantity']); ?> units</li>
                         <?php } ?>
                       </ul>
                     </td>

@@ -44,10 +44,10 @@
         <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product_id) ?>">
         <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_SESSION['user_id']) ?>">
         <div class="flex items-end gap-4 max-w-[50%] mt-4 mb-6">
-            <label for="quantity" class="block text-xl mb-2 font-medium text-gray-700">Quantity</label>
-            <input type="number" name="quantity" id="quantity" placeholder="Quantity" class="w-full text-xl px-4 py-2 mt-1 rounded-md border bg-transparent placeholder-[#AEA089] border-[#AEA089] focus:outline-[#AEA089]" required>
+            <label for="cart_quantity" class="block text-xl mb-2 font-medium text-gray-700">Quantity</label>
+            <input type="number" name="cart_quantity" id="quantity" placeholder="Quantity" class="w-full text-xl px-4 py-2 mt-1 rounded-md border bg-transparent placeholder-[#AEA089] border-[#AEA089] focus:outline-[#AEA089]" required>
           </div>
-        <h3 class="text-[#1E1E1E] text-xl mt-4">Stocks Available: <?php echo htmlspecialchars($quantity['quantity']); ?></h3>
+        <h3 class="text-[#1E1E1E] text-xl mt-4">Stocks Available: <?php echo htmlspecialchars($quantity['stock_available']); ?></h3>
         <button type="submit" class="mt-8 uppercase font-bold text-xl border-[#AEA089] bg-[#AEA089] text-white rounded-full w-full py-4">
         Add to cart
         </button>

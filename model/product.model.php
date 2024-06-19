@@ -22,13 +22,13 @@ function set_product(object $pdo, array $data) {
   $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
   $product_id = $result['product_id'];
-  $item_total = $data['quantity'] * $data['unit_price'];
+  $item_total = $data['stock_available'] * $data['unit_price'];
 
-  $query = "INSERT INTO inventory_item (product_id, quantity, item_total) VALUES (:product_id, :quantity, :item_total);";
+  $query = "INSERT INTO inventory_item (product_id, stock_available, item_total) VALUES (:product_id, :stock_available, :item_total);";
   $stmt = $pdo->prepare($query);
 
   $stmt->bindParam(":product_id",  $product_id);
-  $stmt->bindParam(":quantity", $data['quantity']);
+  $stmt->bindParam(":stock_available", $data['stock_available']);
   $stmt->bindParam(":item_total", $item_total);
 
   $stmt->execute();
@@ -56,7 +56,7 @@ LEFT JOIN product_image pi ON min_image.min_id = pi.image_id;";
 }
 
 function get_all_admin_products(object $pdo) {
-  $query = "SELECT p.*, pi.image_url AS main_image, ii.quantity, ii.item_total
+  $query = "SELECT p.*, pi.image_url AS main_image, ii.stock_available, ii.item_total
 FROM product AS p
 LEFT JOIN (
   SELECT product_id, MIN(image_id) AS min_id
@@ -150,7 +150,7 @@ function get_variations_id(object $pdo, $product_id) {
 }
 
 function get_quantity_by_id(object $pdo, $product_id) {
-  $query = "SELECT quantity FROM inventory_item WHERE product_id = :product_id;";
+  $query = "SELECT stock_available FROM inventory_item WHERE product_id = :product_id;";
   $stmt = $pdo->prepare($query);
 
   $stmt->bindParam(":product_id", $product_id);
@@ -197,14 +197,14 @@ function update_product(object $pdo, array $data) {
   $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function update_quantity(object $pdo, $product_id, $quantity) {
+function update_quantity(object $pdo, $product_id, $stock_available) {
   $product = get_product_by_id($pdo, $product_id);
-  $item_total = $quantity * $product['unit_price'];
-  $query = "UPDATE inventory_item SET quantity = :quantity, item_total = :item_total WHERE product_id = :product_id;";
+  $item_total = $stock_available * $product['unit_price'];
+  $query = "UPDATE inventory_item SET stock_available = :stock_available, item_total = :item_total WHERE product_id = :product_id;";
   $stmt = $pdo->prepare($query);
 
   $stmt->bindParam(":product_id", $product_id);
-  $stmt->bindParam(":quantity", $quantity);
+  $stmt->bindParam(":stock_available", $stock_available);
   $stmt->bindParam(":item_total", $item_total);
   $stmt->execute();
 
@@ -271,16 +271,16 @@ function delete_variation(object $pdo, $variation_id) {
 }
 
 
-// function update_inventory(object $pdo, array $data. $quantity) {
+// function update_inventory(object $pdo, array $data. $stock_available) {
 //   $product = get_product_by_id($pdo, $data['product_id']);
-//   $quantity = get_quantity_by_id($pdo, $data['product_id']);
-//   $new_quantity = $quantity['quantity'] - $data['quantity'];
+//   $stock_available = get_quantity_by_id($pdo, $data['product_id']);
+//   $new_quantity = $stock_available['stock_available'] - $data['stock_available'];
 //   $item_total = $new_quantity * $product['unit_price'];
-//   $query = "UPDATE inventory_item SET quantity = quantity - :quantity, item_total = :item_total WHERE product_id = :product_id;";
+//   $query = "UPDATE inventory_item SET stock_available = stock_available - :stock_available, item_total = :item_total WHERE product_id = :product_id;";
 //   $stmt = $pdo->prepare($query);
 
 //   $stmt->bindParam(":product_id", $product_id);
-//   $stmt->bindParam(":quantity", $new_quantity);
+//   $stmt->bindParam(":stock_available", $new_quantity);
 //   $stmt->bindParam(":item_total", $item_total);
 //   $stmt->execute();
 

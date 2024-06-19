@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $shipping_fee = 59;
 
     foreach($cart_items as $cart_item) {
-      $subtotal = $subtotal + $cart_item['total_price'];
+      $subtotal = $subtotal + $cart_item['cart_total'];
     }
 
 

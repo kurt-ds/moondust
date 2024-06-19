@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $product_name = $_POST['product_name'];
         $unit_price = $_POST['unit_price'];
         $product_desc = $_POST['product_desc'];
-        $quantity = $_POST['quantity'];
+        $stock_available = $_POST['stock_available'];
         $variations = $_POST['variations'];
         $new_variations = [];
         if (array_key_exists('new_variations', $_POST)) {
@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
         update_product($pdo, $data);
-        update_quantity($pdo, $data['product_id'], $quantity);
+        update_quantity($pdo, $data['product_id'], $stock_available);
 
         if ($image_urls) {
             update_images($pdo, $image_urls, $data['product_id']);
@@ -218,7 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $product_name = $_POST['product_name'];
         $unit_price = $_POST['unit_price'];
         $product_desc = $_POST['product_desc'];
-        $quantity = $_POST['quantity'];
+        $stock_available = $_POST['stock_available'];
         $variations = $_POST['variations'];
 
 
@@ -227,7 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'product_name' => $product_name,
             'unit_price' => $unit_price,
             'product_desc' => $product_desc,
-            'quantity' => $quantity
+            'stock_available' => $stock_available
         ];
 
         //Error Handlers

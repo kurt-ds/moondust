@@ -8,14 +8,14 @@ require_once "./model/user.model.php";
 
 
 function set_cart(object $pdo, array $data) {
-  $query = "INSERT INTO cart_item (product_id, user_id, variation_id, quantity, total_price) VALUES (:product_id, :user_id, :variation_id,  :quantity, :total_price)";
+  $query = "INSERT INTO cart_item (product_id, user_id, variation_id, cart_quantity, cart_total) VALUES (:product_id, :user_id, :variation_id,  :cart_quantity, :cart_total)";
   $stmt = $pdo->prepare($query);
 
   $stmt->bindParam(":product_id", $data['product_id']);
   $stmt->bindParam(":user_id", $data['user_id']);
   $stmt->bindParam(":variation_id", $data['variation_id']);
-  $stmt->bindParam(":quantity", $data['quantity']);
-  $stmt->bindParam(":total_price", $data['total_price']);
+  $stmt->bindParam(":cart_quantity", $data['cart_quantity']);
+  $stmt->bindParam(":cart_total", $data['cart_total']);
 
   $stmt->execute();
 }
@@ -32,7 +32,7 @@ function get_cart(object $pdo, $cart_id) {
 }
 
 function get_cart_by_id(object $pdo, $user_id) {
-  $query = "SELECT c.cart_id, c.user_id, p.product_name, p.unit_price ,c.quantity, v.variation_name as variation, c.total_price, pi.image_url AS main_image
+  $query = "SELECT c.cart_id, c.user_id, p.product_name, p.unit_price ,c.cart_quantity, v.variation_name as variation, c.cart_total, pi.image_url AS main_image
 FROM cart_item AS c
 LEFT JOIN product as p ON c.product_id = p.product_id
 LEFT JOIN (
@@ -53,7 +53,7 @@ WHERE c.user_id = :user_id;";
 }
 
 function get_full_cart(object $pdo, $cart_id) {
-  $query = "SELECT c.cart_id, c.user_id, p.product_name, p.unit_price ,c.quantity, v.variation_name as variation, c.total_price, pi.image_url AS main_image
+  $query = "SELECT c.cart_id, c.user_id, p.product_name, p.unit_price ,c.cart_quantity, v.variation_name as variation, c.cart_total, pi.image_url AS main_image
 FROM cart_item AS c
 LEFT JOIN product as p ON c.product_id = p.product_id
 LEFT JOIN (
@@ -84,12 +84,12 @@ function delete_cart(object $pdo, $cart_id) {
 }
 
 function update_cart(object $pdo, array $data) {
-  $query = "UPDATE cart_item SET quantity = :quantity, total_price = :total_price WHERE cart_id = :cart_id;";
+  $query = "UPDATE cart_item SET cart_quantity = :cart_quantity, cart_total = :cart_total WHERE cart_id = :cart_id;";
   $stmt = $pdo->prepare($query);
 
   $stmt->bindParam(":cart_id", $data['cart_id']);
-  $stmt->bindParam(":quantity", $data['quantity']);
-  $stmt->bindParam(":total_price", $data['total_price']);
+  $stmt->bindParam(":cart_quantity", $data['cart_quantity']);
+  $stmt->bindParam(":cart_total", $data['cart_total']);
   $stmt->execute();
 
   $stmt->fetch(PDO::FETCH_ASSOC);

@@ -46,7 +46,7 @@ CREATE TABLE variation (
 CREATE TABLE inventory_item (
     inventory_id INT PRIMARY KEY AUTO_INCREMENT,
 	  product_id INT NOT NULL,
-    quantity INT NOT NULL,
+    stock_available INT NOT NULL,
     item_total DECIMAL(8,2) NOT NULL,
     FOREIGN KEY (product_id) REFERENCES product(product_id)
 );
@@ -56,8 +56,8 @@ CREATE TABLE cart_item (
     product_id INT NOT NULL,
     user_id INT NOT NULL,
     variation_id INT NULL,
-    quantity INT NOT NULL,
-    total_price DECIMAL(8, 2) NOT NULL,
+    cart_quantity INT NOT NULL,
+    cart_total DECIMAL(8, 2) NOT NULL,
     FOREIGN KEY (product_id) REFERENCES product(product_id),
     FOREIGN KEY (user_id) REFERENCES user(user_id),
     FOREIGN KEY (variation_id) REFERENCES variation(variation_id)
@@ -100,7 +100,7 @@ CREATE TABLE order_item (
   order_id INT NOT NULL,
   product_id INT NOT NULL,
   variation_id INT NULL,  -- Adjust size based on your needs
-  quantity INT NOT NULL,
+  order_quantity INT NOT NULL,
   FOREIGN KEY (order_id) REFERENCES c_order(order_id),
   FOREIGN KEY (product_id) REFERENCES product(product_id),
   FOREIGN KEY (variation_id) REFERENCES variation(variation_id)

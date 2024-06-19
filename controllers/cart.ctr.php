@@ -50,16 +50,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
     $cart_id = $_POST['cart_id'];
-    $quantity = $_POST['quantity'];
+    $cart_quantity = $_POST['cart_quantity'];
     $user_id = $_POST['user_id'];
     $cart = get_cart($pdo, $cart_id);
     $product = get_product_by_id($pdo, $cart['product_id']);
-    $total_price = $quantity * $product['unit_price'];
+    $cart_total = $quantity * $product['unit_price'];
 
     $data = [
       'cart_id' => $cart_id,
-      'quantity' => $quantity,
-      'total_price' => $total_price   
+      'cart_quantity' => $cart_quantity,
+      'cart_total' => $cart_total   
     ];
 
     $errors = [];
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   $variation_id = $_POST['variation_id'];
   $product_id = $_POST['product_id'];
   $user_id = $_POST['user_id'];
-  $quantity = $_POST['quantity'];
+  $cart_quantity = $_POST['cart_quantity'];
 
   
   try {
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $product = get_product_by_id($pdo, $product_id);
 
-    $total_price = $quantity * $product['unit_price'];
+    $cart_total = $cart_quantity * $product['unit_price'];
 
 
 
@@ -107,8 +107,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         'product_id' => $product_id,
         'user_id' => $user_id,
         'variation_id' => $variation_id,
-        'quantity' => $quantity,
-        'total_price' => $total_price
+        'cart_quantity' => $cart_quantity,
+        'cart_total' => $cart_total
     ];
 
     //Error Handlers

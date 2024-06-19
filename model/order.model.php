@@ -32,13 +32,13 @@ function get_order(object $pdo, $order_id) {
 }
 
 function set_order_item(object $pdo, array $data, $order_id) {
-  $query = "INSERT INTO order_item (order_id, product_id, variation_id, quantity) VALUES (:order_id, :product_id, :variation_id, :quantity)";
+  $query = "INSERT INTO order_item (order_id, product_id, variation_id, order_quantity) VALUES (:order_id, :product_id, :variation_id, :order_quantity)";
   $stmt = $pdo->prepare($query);
 
   $stmt->bindParam(":order_id", $order_id);
   $stmt->bindParam(":product_id", $data['product_id']);
   $stmt->bindParam(":variation_id", $data['variation_id']);
-  $stmt->bindParam(":quantity", $data['quantity']);
+  $stmt->bindParam(":order_quantity", $data['cart_quantity']);
 
   $stmt->execute();
 }
@@ -56,7 +56,7 @@ LEFT JOIN user as u ON o.user_id = u.user_id;";
 }
 
 function get_order_items(object $pdo, $order_id) {
-  $query = "SELECT p.product_name, p.unit_price, oi.quantity, p.unit_price * oi.quantity AS order_price
+  $query = "SELECT p.product_name, p.unit_price, oi.order_quantity, p.unit_price * oi.order_quantity AS order_price
 FROM order_item as oi
 JOIN product as p ON oi.product_id = p.product_id
 WHERE oi.order_id = :order_id;";

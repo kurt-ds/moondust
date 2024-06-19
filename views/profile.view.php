@@ -87,7 +87,7 @@
                         <h3 class="font-medium text-gray-900"><?php echo $item['product_name']; ?></h3>
                       </div>
                     </td>
-                    <td class="hidden py-6 pr-8 sm:table-cell"><?php echo $item['quantity']; ?></td>
+                    <td class="hidden py-6 pr-8 sm:table-cell"><?php echo $item['order_quantity']; ?></td>
                     <td class="hidden py-6 pr-8 sm:table-cell">₱<?php echo $item['unit_price']; ?></td>
                     <td class="hidden py-6 pr-8 sm:table-cell">₱<?php echo $item['order_price']; ?></td>
                   </tr>

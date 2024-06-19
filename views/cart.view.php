@@ -13,7 +13,7 @@
             <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
             <ul role="list" class="divide-y divide-gray-200 space-y-4">
               <?php foreach ($cart_items as $key => $item) : ?>
-                <li class="flex bg-white border rounded-2xl transition-all duration-300 ease-in-out py-6 px-10 sm:py-10 cursor-pointer item" onclick="toggleSelection(event, '<?php echo htmlspecialchars($item["cart_id"]); ?>', <?php echo $item['total_price']; ?>)">
+                <li class="flex bg-white border rounded-2xl transition-all duration-300 ease-in-out py-6 px-10 sm:py-10 cursor-pointer item" onclick="toggleSelection(event, '<?php echo htmlspecialchars($item["cart_id"]); ?>', <?php echo $item['cart_total']; ?>)">
                   <div class="flex-shrink-0">
                     <img src="<?php echo $item['main_image']; ?>" alt="Product Image" class="h-24 w-24 rounded-md object-cover object-center sm:h-48 sm:w-48">
                   </div>
@@ -32,14 +32,14 @@
                       </div>
                       <p class="text-sm text-gray-500"><?php echo $item['variation']; ?></p>
                       <p class="text-lg font-medium text-gray-900 mt-4">Unit Price: ₱<?php echo number_format($item['unit_price'], 2); ?></p>
-                      <p class="mt-1 text-lg font-medium text-gray-900">Total Price: ₱<?php echo number_format($item['total_price'], 2); ?></p>
+                      <p class="mt-1 text-lg font-medium text-gray-900">Total Price: ₱<?php echo number_format($item['cart_total'], 2); ?></p>
                       <form class="w-[40%] flex gap-2" action="/cart" method='post' onclick="event.stopPropagation();">
                         <input type="hidden" name="_method" value="put" />
                         <input type="hidden" name="cart_id" value="<?php echo htmlspecialchars($item["cart_id"]); ?>">
                         <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($item["user_id"]); ?>">
                         <div class="flex text-lg mt-4 w-[600px] flex-row items-center gap-2">
                           <label class="mr-1" for="quantity-<?php echo $key; ?>">Quantity: </label>
-                          <input class="bg-gray-100 rounded-xl px-4 w-full" type="number" id="quantity-<?php echo $key; ?>" name="quantity" value="<?php echo $item['quantity']; ?>" min="1" class="w-16 border-gray-300 rounded-md" oninput="showConfirmButton(this)">
+                          <input class="bg-gray-100 rounded-xl px-4 w-full" type="number" id="quantity-<?php echo $key; ?>" name="cart_quantity" value="<?php echo $item['cart_quantity']; ?>" min="1" class="w-16 border-gray-300 rounded-md" oninput="showConfirmButton(this)">
                         </div>
                         <button type='submit' class="ml-4 mt-4 opacity-0 rounded-md border border-transparent bg-[#AEA089] px-4 py-3 text-base font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50">Confirm</button>
                       </form>    

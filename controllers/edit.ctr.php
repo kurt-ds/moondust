@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $product = get_product_by_id($pdo, $product_id);
     $variations = get_variations_by_id($pdo, $product_id);
-    $quantity = get_quantity_by_id($pdo, $product_id);
+    $stock_available = get_quantity_by_id($pdo, $product_id);
 
     require "views/edit.view.php";
     

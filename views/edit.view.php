@@ -25,8 +25,8 @@
             </textarea>
           </div>
           <div class="mb-6">
-            <label for="quantity" class="block text-xl mb-2 font-medium text-gray-700">Quantity</label>
-            <input type="number" name="quantity" id="quantity" placeholder="Quantity" value="<?php echo htmlspecialchars($quantity['quantity']) ?>" class="w-full text-xl px-4 py-2 mt-1 rounded-md border bg-transparent placeholder-[#AEA089] border-[#AEA089] focus:outline-[#AEA089]" required>
+            <label for="stock_available" class="block text-xl mb-2 font-medium text-gray-700">Stock Available</label>
+            <input type="number" name="stock_available" id="quantity" placeholder="Quantity" value="<?php echo htmlspecialchars($stock_available['stock_available']) ?>" class="w-full text-xl px-4 py-2 mt-1 rounded-md border bg-transparent placeholder-[#AEA089] border-[#AEA089] focus:outline-[#AEA089]" required>
           </div>
         </div>
         <div>
