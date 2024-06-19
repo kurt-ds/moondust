@@ -22,14 +22,14 @@ function set_product(object $pdo, array $data) {
   $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
   $product_id = $result['product_id'];
-  $total_price = $data['quantity'] * $data['unit_price'];
+  $item_total = $data['quantity'] * $data['unit_price'];
 
-  $query = "INSERT INTO inventory_item (product_id, quantity, total_price) VALUES (:product_id, :quantity, :total_price);";
+  $query = "INSERT INTO inventory_item (product_id, quantity, item_total) VALUES (:product_id, :quantity, :item_total);";
   $stmt = $pdo->prepare($query);
 
   $stmt->bindParam(":product_id",  $product_id);
   $stmt->bindParam(":quantity", $data['quantity']);
-  $stmt->bindParam(":total_price", $total_price);
+  $stmt->bindParam(":item_total", $item_total);
 
   $stmt->execute();
 
@@ -56,7 +56,7 @@ LEFT JOIN product_image pi ON min_image.min_id = pi.image_id;";
 }
 
 function get_all_admin_products(object $pdo) {
-  $query = "SELECT p.*, pi.image_url AS main_image, ii.quantity, ii.total_price
+  $query = "SELECT p.*, pi.image_url AS main_image, ii.quantity, ii.item_total
 FROM product AS p
 LEFT JOIN (
   SELECT product_id, MIN(image_id) AS min_id
@@ -138,6 +138,17 @@ function get_variations_by_id(object $pdo, $product_id) {
   return $result;
 }
 
+function get_variations_id(object $pdo, $product_id) {
+  $query = "SELECT variation_id FROM variation WHERE product_id = :product_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":product_id", $product_id);
+  $stmt->execute();
+
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+
 function get_quantity_by_id(object $pdo, $product_id) {
   $query = "SELECT quantity FROM inventory_item WHERE product_id = :product_id;";
   $stmt = $pdo->prepare($query);
@@ -188,13 +199,13 @@ function update_product(object $pdo, array $data) {
 
 function update_quantity(object $pdo, $product_id, $quantity) {
   $product = get_product_by_id($pdo, $product_id);
-  $total_price = $quantity * $product['unit_price'];
-  $query = "UPDATE inventory_item SET quantity = :quantity, total_price = :total_price WHERE product_id = :product_id;";
+  $item_total = $quantity * $product['unit_price'];
+  $query = "UPDATE inventory_item SET quantity = :quantity, item_total = :item_total WHERE product_id = :product_id;";
   $stmt = $pdo->prepare($query);
 
   $stmt->bindParam(":product_id", $product_id);
   $stmt->bindParam(":quantity", $quantity);
-  $stmt->bindParam(":total_price", $total_price);
+  $stmt->bindParam(":item_total", $item_total);
   $stmt->execute();
 
   $stmt->fetch(PDO::FETCH_ASSOC);
@@ -208,12 +219,25 @@ function update_images(object $pdo, array $image_urls, $product_id) {
 }
 
 function update_variations(object $pdo, array $variations, $product_id) {
+
   delete_variations_by_id($pdo, $product_id);
   for ($i = 0; $i < count($variations); $i = $i + 2) {
     $color = $variations[$i]['color'];
     $name = $variations[$i + 1]['name'];
     set_color($pdo, $product_id, $color, $name);
   }
+}
+
+function update_variation(object $pdo, array $data) {
+  $query = "UPDATE variation SET variation_name = :variation_name, color = :color WHERE variation_id = :variation_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":variation_name", $data['variation_name']);
+  $stmt->bindParam(":color", $data['color']);
+  $stmt->bindParam(":variation_id", $data['variation_id']);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 function delete_product(object $pdo, $product_id) {
@@ -236,18 +260,28 @@ function delete_inventory(object $pdo, $product_id) {
   $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function delete_variation(object $pdo, $variation_id) {
+  $query = "DELETE FROM variation where variation_id = :variation_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":variation_id", $variation_id);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 
 // function update_inventory(object $pdo, array $data. $quantity) {
 //   $product = get_product_by_id($pdo, $data['product_id']);
 //   $quantity = get_quantity_by_id($pdo, $data['product_id']);
 //   $new_quantity = $quantity['quantity'] - $data['quantity'];
-//   $total_price = $new_quantity * $product['unit_price'];
-//   $query = "UPDATE inventory_item SET quantity = quantity - :quantity, total_price = :total_price WHERE product_id = :product_id;";
+//   $item_total = $new_quantity * $product['unit_price'];
+//   $query = "UPDATE inventory_item SET quantity = quantity - :quantity, item_total = :item_total WHERE product_id = :product_id;";
 //   $stmt = $pdo->prepare($query);
 
 //   $stmt->bindParam(":product_id", $product_id);
 //   $stmt->bindParam(":quantity", $new_quantity);
-//   $stmt->bindParam(":total_price", $total_price);
+//   $stmt->bindParam(":item_total", $item_total);
 //   $stmt->execute();
 
 //   $stmt->fetch(PDO::FETCH_ASSOC);

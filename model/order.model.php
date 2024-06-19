@@ -79,3 +79,13 @@ WHERE o.user_id = :user_id;";
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return $result;
 }
+
+function remove_order_variation(object $pdo, $variation_id) {
+  $query = "UPDATE order_item SET variation_id = NULL WHERE variation_id = :variation_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":variation_id", $variation_id);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}

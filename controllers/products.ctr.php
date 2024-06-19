@@ -71,6 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     try {
         require_once "./model/product.model.php";
+        require_once "./model/order.model.php";
+        require_once "./model/cart.model.php";
 
         $product_id = $_POST['product_id'];
         $product_name = $_POST['product_name'];
@@ -78,6 +80,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $product_desc = $_POST['product_desc'];
         $quantity = $_POST['quantity'];
         $variations = $_POST['variations'];
+        $new_variations = [];
+        if (array_key_exists('new_variations', $_POST)) {
+            $new_variations = $_POST['new_variations'];
+        }
+
 
         //Compiling Data into single array        
         $data = [
@@ -105,12 +112,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             die();
         }
 
+
         update_product($pdo, $data);
         update_quantity($pdo, $data['product_id'], $quantity);
+
         if ($image_urls) {
             update_images($pdo, $image_urls, $data['product_id']);
         }
-        update_variations($pdo, $variations, $data['product_id']);
+
+        $old_variation_ids = get_variations_id($pdo, $data['product_id']);
+        $current_variation_ids = [];
+
+
+
+        for ($i = 0; $i < count($variations); $i = $i + 3) {
+            $variation_id = $variations[$i]['variation_id'];
+            $current_variation_ids[] = $variation_id;
+            $color = $variations[$i + 1]['color'];
+            $variation_name = $variations[$i + 2]['name'];
+            $variation = [
+                'variation_id' => $variation_id,
+                'color' => $color,
+                'variation_name' => $variation_name
+            ];
+            update_variation($pdo, $variation);
+        }
+
+        foreach ($old_variation_ids as $old_id) {
+            $id = (string) $old_id['variation_id'];
+            if (!in_array($id, $current_variation_ids)) {
+                remove_order_variation($pdo, $id);
+                remove_cart_variation($pdo, $id);
+                delete_variation($pdo, $id);
+            }
+        }
+
+        for ($i = 0; $i < count($new_variations); $i = $i + 2) {
+            $color = $new_variations[$i]['color'];
+            $name = $new_variations[$i + 1]['name'];
+            set_color($pdo, $data['product_id'], $color, $name);
+        }
 
         header("Location: /admin?form=success");
         $pdo = null;

@@ -95,5 +95,15 @@ function update_cart(object $pdo, array $data) {
   $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function remove_cart_variation(object $pdo, $variation_id) {
+  $query = "UPDATE cart_item SET variation_id = NULL WHERE variation_id = :variation_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":variation_id", $variation_id);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 
 
