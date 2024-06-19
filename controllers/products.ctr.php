@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     } catch (PDOException $e) {
         die("Query failed: " . $e->GetMessage());
     }
-} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['_method'] === 'put') {
+} else if (($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists('_method', $_POST)) && $_POST['_method'] === 'put') {
     $errors = [];
     $image_urls = [];
 
