@@ -1,1 +1,3 @@
 uploads/
+# add .DS_store for mac
+.DS_Store

@@ -7,12 +7,12 @@ CREATE TABLE role (
   role_name VARCHAR(35) NOT NULL
 );
 
-INSERT INTO role VALUES
+INSERT INTO role (role_id, role_name) VALUES
 (1, 'user'),
 (2, 'admin');
 
-CREATE TABLE user (
-	user_id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE `user` (
+  user_id INT PRIMARY KEY AUTO_INCREMENT,
   username VARCHAR(100) NOT NULL UNIQUE,
   email VARCHAR(255) NOT NULL UNIQUE,
   pwd VARCHAR(255) NOT NULL,
@@ -23,44 +23,45 @@ CREATE TABLE user (
 );
 
 CREATE TABLE product (
-	product_id INT PRIMARY KEY AUTO_INCREMENT,
-    product_name VARCHAR(100) UNIQUE NOT NULL,
-    unit_price DECIMAL(8,2) NOT NULL,
-    product_desc TEXT NOT NULL
+  product_id INT PRIMARY KEY AUTO_INCREMENT,
+  product_name VARCHAR(100) UNIQUE NOT NULL,
+  unit_price DECIMAL(8,2) NOT NULL,
+  product_desc TEXT NOT NULL
 );
 
 CREATE TABLE product_image (
-    image_id INT PRIMARY KEY AUTO_INCREMENT,
-    product_id INT NOT NULL,
-    image_url VARCHAR(255) NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES product(product_id)
+  image_id INT PRIMARY KEY AUTO_INCREMENT,
+  product_id INT NOT NULL,
+  image_url VARCHAR(255) NOT NULL,
+  FOREIGN KEY (product_id) REFERENCES product(product_id)
 );
 
 CREATE TABLE variation (
-    product_id INT NOT NULL,
-    variation_name VARCHAR(35) NOT NULL,
-    color VARCHAR(35) NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES product(product_id)
+  variation_id INT PRIMARY KEY AUTO_INCREMENT,  -- Added primary key for variation table
+  product_id INT NOT NULL,
+  variation_name VARCHAR(35) NOT NULL,
+  color VARCHAR(35) NOT NULL,
+  FOREIGN KEY (product_id) REFERENCES product(product_id)
 );
 
 CREATE TABLE inventory_item (
-    inventory_id INT PRIMARY KEY AUTO_INCREMENT,
-	  product_id INT NOT NULL,
-    stock_available INT NOT NULL,
-    item_total DECIMAL(8,2) NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES product(product_id)
+  inventory_id INT PRIMARY KEY AUTO_INCREMENT,
+  product_id INT NOT NULL,
+  stock_available INT NOT NULL,
+  item_total DECIMAL(8,2) NOT NULL,
+  FOREIGN KEY (product_id) REFERENCES product(product_id)
 );
 
 CREATE TABLE cart_item (
-	cart_id INT PRIMARY KEY AUTO_INCREMENT,
-    product_id INT NOT NULL,
-    user_id INT NOT NULL,
-    variation_id INT NULL,
-    cart_quantity INT NOT NULL,
-    cart_total DECIMAL(8, 2) NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES product(product_id),
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
-    FOREIGN KEY (variation_id) REFERENCES variation(variation_id)
+  cart_id INT PRIMARY KEY AUTO_INCREMENT,
+  product_id INT NOT NULL,
+  user_id INT NOT NULL,
+  variation_id INT NULL,
+  cart_quantity INT NOT NULL,
+  cart_total DECIMAL(8, 2) NOT NULL,
+  FOREIGN KEY (product_id) REFERENCES product(product_id),
+  FOREIGN KEY (user_id) REFERENCES `user`(user_id),
+  FOREIGN KEY (variation_id) REFERENCES variation(variation_id)
 );
 
 CREATE TABLE order_status (
@@ -76,7 +77,7 @@ CREATE TABLE c_order (
   status INT NOT NULL,
   order_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   order_total DECIMAL(10,2) NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES user(user_id),
+  FOREIGN KEY (user_id) REFERENCES `user`(user_id),
   FOREIGN KEY (status) REFERENCES order_status(status_id)
 );
 
@@ -93,13 +94,13 @@ VALUES
   (9, 'Delivered', 'Order is delivered to the customer.'),
   (10, 'Completed', 'Order is fulfilled and payment is received.'),
   (11, 'Cancelled', 'Order is cancelled by the customer or seller.'),
-  (12, 'Returned', 'Order is returned by the customer.');' -- Remove the exta single quote
+  (12, 'Returned', 'Order is returned by the customer.');
 
 CREATE TABLE order_item (
   item_id INT PRIMARY KEY AUTO_INCREMENT,
   order_id INT NOT NULL,
   product_id INT NOT NULL,
-  variation_id INT NULL,  -- Adjust size based on your needs
+  variation_id INT NULL,
   order_quantity INT NOT NULL,
   FOREIGN KEY (order_id) REFERENCES c_order(order_id),
   FOREIGN KEY (product_id) REFERENCES product(product_id),
