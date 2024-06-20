@@ -53,7 +53,6 @@
                 <tr>
                   <th scope="col" class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-0">Product Image</th>
                   <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Product Name</th>
-                  <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Product Description</th>
                   <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Unit Price</th>
                   <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Stock</th>
                   <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0 text-center">
@@ -68,15 +67,14 @@
                       <img class="w-20 h-20 rounded-xl object-cover mx-auto" src="/<?php echo htmlspecialchars($product["main_image"]); ?>" alt="Product Image">
                     </td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900"><?php echo htmlspecialchars($product["product_name"]); ?></td>
-                    <td class="px-3 py-4 text-sm text-gray-500 w-[30rem]"><?php echo htmlspecialchars($product["product_desc"]); ?></td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">₱<?php echo htmlspecialchars($product["unit_price"]); ?></td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo htmlspecialchars($product["stock_available"]); ?></td>
                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                      <a href="/products/<?php echo htmlspecialchars($product["product_id"]); ?>/edit" class="text-[#AEA089]">Edit<span class="sr-only">, <?php echo htmlspecialchars($product["product_name"]); ?></span></a>
+                      <a href="/products/<?php echo htmlspecialchars($product["product_id"]); ?>/edit" class="font-bold text-[#AEA089]">Edit<span class="sr-only">, <?php echo htmlspecialchars($product["product_name"]); ?></span></a>
                       <form class="inline" action="/products/<?php echo htmlspecialchars($product["product_id"]); ?>" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
                         <input type="hidden" name="_method" value="delete" />
                         <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product["product_id"]); ?>">
-                        <button type="submit" class="text-red-600 hover:text-red-900 ml-4">Delete</button>
+                        <button type="submit" class="text-red-600 hover:text-red-900 ml-4 font-bold">Delete</button>
                       </form>
                     </td>
                   </tr>
@@ -124,14 +122,14 @@
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       <form action="/admin" method="post">
                         <input type="hidden" name="order_id" value="<?php echo htmlspecialchars($order['order_id']); ?>">
-                        <select name='status_id' >
+                        <select class="bg-[#AEA089] text-white px-2 py-2 rounded-xl" name='status_id' >
                           <?php foreach ($statuses as $status) { ?>
                             <option value="<?php echo htmlspecialchars($status['status_id']); ?>" <?php if ($status['status_id'] == $order['status_id']) { echo 'selected'; } ?> >
                               <?php echo htmlspecialchars($status['name']); ?>
                             </option>
                           <?php } ?>
                         </select>
-                        <button type='submit'>Update Status</button>
+                        <button class="ml-2 text-[#AEA089] font-bold" type='submit'>Update Status</button>
                       </form>
                     </td>
                   </tr>
@@ -148,36 +146,38 @@
       <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
           <h1 class="text-3xl font-semibold leading-6 text-[#AEA089]">User Management</h1>
-          <p class="mt-4 text-sm text-gray-700">A list of users to make them admin emerut.</p>
+          <p class="mt-4 text-sm text-gray-700">A list of users, categorized based on their roles. The admin can also set a user to an admin.</p>
         </div>
       </div>
       <div class="mt-8 flow-root">
-        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="w-full -mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-            <table class="min-w-full divide-y divide-gray-300">
-              <thead>
-                <tr>
-                  <th scope="col" class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-0">Customer Username</th>
-                  <th scope="col" class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-0">Role</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200 text-center">
-                <?php foreach ($users as $user) { ?>
+            <div class="w-full grid gap-4">
+              <table class="divide-y divide-gray-300">
+                <thead>
+                  <tr>
+                    <th scope="col" class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-0">Customer Username</th>
+                    <th scope="col" class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-0">Role</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 text-center">
+                  <?php foreach ($users as $user) { ?>
                     <tr>
-                      <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0"><?php echo htmlspecialchars($user["username"]); ?></td>
-                      <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0"><?php echo htmlspecialchars($user["role_name"]); ?></td>
+                      <td class="w-full whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0"><?php echo htmlspecialchars($user["username"]); ?></td>
+                      <td class="w-full whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0"><?php echo htmlspecialchars($user["role_name"]); ?></td>
                       <?php if ($user['role_id'] != 2) { ?>
                         <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0">
                           <form action="/admin" method='post'>
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user["user_id"]); ?>">
-                            <button type="submit" >Make Admin</button>
+                            <button type="submit">Make Admin</button>
                           </form>
                         </td>
                       <?php } ?>
                     </tr>
-                <?php } ?>
-              </tbody>
-            </table>
+                  <?php } ?>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
