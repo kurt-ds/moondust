@@ -169,7 +169,7 @@
                         <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0">
                           <form action="/admin" method='post'>
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user["user_id"]); ?>">
-                            <button type="submit">Make Admin</button>
+                            <button class="bg-[#AEA089] text-white px-4 py-2 rounded-xl" type="submit">Make Admin</button>
                           </form>
                         </td>
                       <?php } ?>
