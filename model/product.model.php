@@ -270,19 +270,24 @@ function delete_variation(object $pdo, $variation_id) {
   $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function delete_order_by_product(object $pdo, $product_id) {
+  $query = "SELECT order_id FROM order_item WHERE product_id = :product_id; DELETE FROM order_item WHERE product_id = :product_id";
+  $stmt = $pdo->prepare($query);
 
-// function update_inventory(object $pdo, array $data. $stock_available) {
-//   $product = get_product_by_id($pdo, $data['product_id']);
-//   $stock_available = get_quantity_by_id($pdo, $data['product_id']);
-//   $new_quantity = $stock_available['stock_available'] - $data['stock_available'];
-//   $item_total = $new_quantity * $product['unit_price'];
-//   $query = "UPDATE inventory_item SET stock_available = stock_available - :stock_available, item_total = :item_total WHERE product_id = :product_id;";
-//   $stmt = $pdo->prepare($query);
+  $stmt->bindParam(":product_id", $product_id);
+  $stmt->execute();
 
-//   $stmt->bindParam(":product_id", $product_id);
-//   $stmt->bindParam(":stock_available", $new_quantity);
-//   $stmt->bindParam(":item_total", $item_total);
-//   $stmt->execute();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
 
-//   $stmt->fetch(PDO::FETCH_ASSOC);
-// }
+function delete_cart_by_product(object $pdo, $product_id) {
+  $query = "SELECT cart_id FROM cart_item WHERE product_id = :product_id; DELETE FROM cart_item where product_id = :product_id";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":product_id", $product_id);
+  $stmt->execute();
+
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}

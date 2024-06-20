@@ -118,3 +118,34 @@ function update_order_status(object $pdo, $order_id, $status_id) {
 
   $stmt->fetch(PDO::FETCH_ASSOC);
 }
+
+function count_order_items($pdo, $order_id) {
+  $query = "SELECT COUNT(*) as total_items FROM order_item WHERE order_id = :order_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":order_id", $order_id);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function delete_order(object $pdo, $order_id) {
+  $query = "DELETE FROM c_order where order_id = :order_id";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":order_id", $order_id);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function update_order_total(object $pdo, $order_id, $order_total) {
+  $query = "UPDATE c_order SET order_total = :order_total WHERE order_id = :order_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":order_id", $order_id);
+  $stmt->bindParam(":order_total", $order_total);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}

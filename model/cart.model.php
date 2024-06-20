@@ -106,4 +106,13 @@ function remove_cart_variation(object $pdo, $variation_id) {
 }
 
 
+function update_cart_total(object $pdo, $cart_id) {
+  $query = "UPDATE cart_item as c SET cart_total = p.unit_price * c.cart_quantity JOIN product as p ON c.product_id = p.product_id WHERE c.cart_id = :cart_id;";
+  $stmt = $pdo->prepare($query);
+
+  $stmt->bindParam(":cart_id", $cart_id);
+  $stmt->execute();
+
+  $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
