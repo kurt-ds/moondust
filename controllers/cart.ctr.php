@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $user_id = $_POST['user_id'];
     $cart = get_cart($pdo, $cart_id);
     $product = get_product_by_id($pdo, $cart['product_id']);
-    $cart_total = $quantity * $product['unit_price'];
+    $cart_total = $cart_quantity * $product['unit_price'];
 
     $data = [
       'cart_id' => $cart_id,
