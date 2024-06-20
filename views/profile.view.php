@@ -59,7 +59,7 @@
                   <dd class="sm:mt-1">
                     <form action="/profile" method="post">
                       <input type="hidden" name="order_id" value="<?php echo htmlspecialchars($order['order_id']); ?>">
-                      <button type="submit" >CANCEL ORDER</button>
+                      <button class="bg-red-500 text-white px-4 py-2 font-bold mt-4 rounded-xl" type="submit" >CANCEL ORDER</button>
                     </form>
                   </dd>
                 </div>
