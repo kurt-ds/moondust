@@ -3,6 +3,14 @@
 $heading = "Edit";
 $product_id = $params['product_id'];
 
+if (!isLoggedIn()) {
+  header("Location: /login");
+}
+
+if (!isAdmin()) {
+  header('Location: /products?error=unauthorized');
+}
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   try {

@@ -6,9 +6,6 @@ $product_id = $params['product_id'];
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-  if (!isLoggedIn()) {
-    header("Location: /login");
-  }
   try {
     require_once './model/product.model.php';
 
@@ -26,6 +23,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       die("Query failed: " . $e->getMessage());
   }
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['_method'] == 'delete') {
+  if (!isLoggedIn()) {
+    header("Location: /login");
+  }
+
+  if (!isAdmin()) {
+    header('Location: /products?error=unauthorized');
+  }
+
   try {
     require_once './model/product.model.php';
     require_once './model/cart.model.php';

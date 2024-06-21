@@ -3,11 +3,11 @@
 $heading = "ADMIN PAGE";
 
 if (!isLoggedIn()) {
-  header('Location: /products?error=notAdmin');
+  header("Location: /login");
 }
 
-if (isLoggedIn() && !isAdmin()) {
-  header('Location: /products?error=notAdmin');
+if (!isAdmin()) {
+  header('Location: /products?error=unauthorized');
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {

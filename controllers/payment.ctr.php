@@ -2,6 +2,10 @@
 
 $heading = "Payment";
 
+if (!isLoggedIn()) {
+  header("Location: /login");
+}
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   require "views/order.view.php";
