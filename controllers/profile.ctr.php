@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     } catch (PDOException $e) {
         die("Query failed: " . $e->GetMessage());
     }
-} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['_method'] === 'cancel') {
     try {
         require_once "./model/order.model.php";
 
@@ -47,6 +47,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     } catch (PDOException $e) {
         die("Query failed: " . $e->GetMessage());
     }
-
 }
 ?>

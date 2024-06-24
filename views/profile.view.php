@@ -53,11 +53,12 @@
                   <dt>Order Status</dt>
                   <dd class="sm:mt-1"><?php echo htmlspecialchars($order['status']); ?></dd>
                 </div>
-                <?php if ( $order['status_id'] < 6) { ?>
+                <?php if ( $order['status_id'] < 3) { ?>
                 <div class="flex justify-between pt-6 font-medium text-gray-900 sm:block sm:pt-0">
                   <dt></dt>
                   <dd class="sm:mt-1">
                     <form action="/profile" method="post">
+                    <input type="hidden" name="_method" value="cancel">
                       <input type="hidden" name="order_id" value="<?php echo htmlspecialchars($order['order_id']); ?>">
                       <button class="bg-red-500 text-white px-4 py-2 font-bold mt-4 rounded-xl" type="submit" >CANCEL ORDER</button>
                     </form>

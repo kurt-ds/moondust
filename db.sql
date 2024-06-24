@@ -84,17 +84,13 @@ CREATE TABLE c_order (
 INSERT INTO order_status (status_id, name, description)
 VALUES
   (1, 'Submitted', 'Order is placed by the customer.'),
-  (2, 'Pending Payment', 'Order is awaiting payment from the customer.'),
-  (3, 'Authorized', 'Payment is authorized by the customer\'s bank.'),
-  (4, 'In Process', 'Order is being processed by the seller (e.g., picking, packing).'),
-  (5, 'On Hold', 'Order processing is paused due to issues (e.g., out of stock).'),
-  (6, 'Partially Shipped', 'Part of the order is shipped, the rest is pending.'),
-  (7, 'Shipped', 'Entire order is shipped to the customer.'),
-  (8, 'Out for Delivery', 'Package is with the delivery carrier.'),
-  (9, 'Delivered', 'Order is delivered to the customer.'),
-  (10, 'Completed', 'Order is fulfilled and payment is received.'),
-  (11, 'Cancelled', 'Order is cancelled by the customer or seller.'),
-  (12, 'Returned', 'Order is returned by the customer.');
+  (2, 'In Process', 'Order is being processed by the seller (e.g., picking, packing).'),
+  (3, 'Shipped', 'Entire order is shipped to the customer.'),
+  (4, 'Out for Delivery', 'Package is with the delivery carrier.'),
+  (5, 'Delivered', 'Order is delivered to the customer.'),
+  (6, 'Completed', 'Order is fulfilled and payment is received.'),
+  (7, 'Cancelled', 'Order is cancelled by the customer or seller.'),
+  (8, 'Returned', 'Order is returned by the customer.');
 
 CREATE TABLE order_item (
   item_id INT PRIMARY KEY AUTO_INCREMENT,

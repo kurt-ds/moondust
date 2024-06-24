@@ -91,7 +91,7 @@ function remove_order_variation(object $pdo, $variation_id) {
 }
 
 function cancel_order(object $pdo, $order_id) {
-  $query = "UPDATE c_order SET status = 11 WHERE order_id = :order_id;";
+  $query = "UPDATE c_order SET status = 7 WHERE order_id = :order_id;";
   $stmt = $pdo->prepare($query);
 
   $stmt->bindParam(":order_id", $order_id);
