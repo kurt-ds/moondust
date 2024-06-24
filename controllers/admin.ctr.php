@@ -25,11 +25,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $users = get_all_users($pdo);
 
     $total_sales = 0;
-    $total_orders = count($orders);
+    $total_orders = 0;
 
     foreach ($orders as $key => $order) {
       $orders[$key]['order_items'] = get_order_items($pdo, $order['order_id']);
-      $total_sales += $order['order_total'];
+      if ($order['status_id'] <= 6) {
+        $total_sales += $order['order_total'];
+        $total_orders = $total_orders + 1;
+      }
     }
 
     require "views/admin.view.php";
