@@ -79,3 +79,7 @@ function make_admin(object $pdo, $user_id) {
 
     $stmt->execute();
 }
+function validateNumber(object $pdo, $contact_no) {
+    $pattern = "/^0*[1-9][0-9]*$/";  // Allows leading zeros, excludes single zero
+    return preg_match($pattern, $contact_no);
+  }
