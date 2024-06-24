@@ -35,6 +35,14 @@ function is_username_taken(object $pdo, string $username) {
   }
 }
 
+function is_number_string(object $pdo, $contact_no ){
+  if(!validateNumber($pdo, $contact_no)){
+    return true;
+  } else {
+    return false;
+  }
+}
+
 
 if (isLoggedIn()) {
   header('Location: /products?error=alreadyLoggedIn');
@@ -81,6 +89,10 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     }
     if(strlen($pwd) < 8 || strlen($pwd) > 64){
       $errors['invalid_pwd'] = "Invalid password length!";
+    }
+    if(is_number_string($pdo,$contact_no)){
+      $errors['invalid_number'] = "Invalid contact number!";
+
     }
 
 
