@@ -41,10 +41,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists('status_id', $_POST) && array_key_exists('order_id', $_POST)) {
   try {
     require_once "./model/order.model.php";
+    require_once "./model/product.model.php";
+    
     $status_id = $_POST['status_id'];
     $order_id = $_POST['order_id'];
     
     update_order_status($pdo, $order_id, $status_id);
+
+    if ($status_id == 7) {
+      $order_items = get_order_items($pdo, $order_id);
+      foreach ($order_items as $order_item) {
+          $currentStockAvailable = get_quantity_by_id($pdo, $order_item['product_id'])['stock_available'];
+          $newStockAvailable = $currentStockAvailable + $order_item['order_quantity'];
+          update_quantity($pdo, $order_item['product_id'], $newStockAvailable);
+      }
+    }
 
     header('Location: /admin?status=success');
     $pdo = null;
