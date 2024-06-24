@@ -90,6 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   $product_id = $_POST['product_id'];
   $user_id = $_POST['user_id'];
   $cart_quantity = $_POST['cart_quantity'];
+  $stock_available = $_POST['stock_available'];
 
   
   try {
@@ -116,6 +117,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if (is_input_empty($data)) {
         $errors["empty_input"] = "Fill in all fields!";
+    }
+
+    if ($cart_quantity > $stock_available) {
+      $errors['no_stocks']  = "No Stock Available";
     }
 
 
