@@ -65,6 +65,30 @@
                   </dd>
                 </div>
                 <?php } ?>
+                <?php if ( $order['status_id'] == 5) { ?>
+                <div class="flex justify-between pt-6 font-medium text-gray-900 sm:block sm:pt-0">
+                  <dt></dt>
+                  <dd class="sm:mt-1">
+                    <form action="/profile" method="post">
+                    <input type="hidden" name="_method" value="complete">
+                      <input type="hidden" name="order_id" value="<?php echo htmlspecialchars($order['order_id']); ?>">
+                      <button class="bg-red-500 text-white px-4 py-2 font-bold mt-4 rounded-xl" type="submit" >COMPLETE ORDER</button>
+                    </form>
+                  </dd>
+                </div>
+                <?php } ?>
+                <?php if ( $order['status_id'] == 5) { ?>
+                <div class="flex justify-between pt-6 font-medium text-gray-900 sm:block sm:pt-0">
+                  <dt></dt>
+                  <dd class="sm:mt-1">
+                    <form action="/profile" method="post">
+                    <input type="hidden" name="_method" value="return">
+                      <input type="hidden" name="order_id" value="<?php echo htmlspecialchars($order['order_id']); ?>">
+                      <button class="bg-red-500 text-white px-4 py-2 font-bold mt-4 rounded-xl" type="submit" >RETURN ORDER</button>
+                    </form>
+                  </dd>
+                </div>
+                <?php } ?>
               </dl>
             </div>
 

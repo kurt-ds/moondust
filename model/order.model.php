@@ -21,10 +21,10 @@ function set_order(object $pdo, array $data) {
 }
 
 function get_order(object $pdo, $order_id) {
-  $query = "SELECT * FROM  WHERE cart_id = :cart_id";
+  $query = "SELECT * FROM c_order WHERE order_id = :order_id";
   $stmt = $pdo->prepare($query);
 
-  $stmt->bindParam(":cart_id", $cart_id);
+  $stmt->bindParam(":order_id", $order_id);
   
   $stmt->execute();
   $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -56,7 +56,7 @@ LEFT JOIN user as u ON o.user_id = u.user_id;";
 }
 
 function get_order_items(object $pdo, $order_id) {
-  $query = "SELECT p.product_name, p.unit_price, oi.order_quantity, p.unit_price * oi.order_quantity AS order_price
+  $query = "SELECT p.product_id, p.product_name, p.unit_price, oi.order_quantity, p.unit_price * oi.order_quantity AS order_price
 FROM order_item as oi
 JOIN product as p ON oi.product_id = p.product_id
 WHERE oi.order_id = :order_id;";
