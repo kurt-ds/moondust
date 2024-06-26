@@ -87,9 +87,57 @@
   </div>
 </main>
 
+<!-- Modal -->
+<div id="order-modal" class="relative z-[1000] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+  <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <div class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+        <div>
+          <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100" id="modal-icon">
+            <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" id="modal-error-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <svg class="h-6 w-6 text-green-600 hidden" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" id="modal-success-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div class="mt-3 text-center sm:mt-5">
+            <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Error</h3>
+            <div class="mt-2">
+              <p class="text-sm text-gray-500" id="modal-message">The quantity requested exceeds the available stock. Please adjust your quantity.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-5 sm:mt-6">
+          <button type="button" id="close-order-modal" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <?php require 'partials/footer.php'; ?>
 
 <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderModal = document.getElementById("order-modal");
+    const closeOrderModalBtn = document.getElementById("close-order-modal");
+    const modalMessage = document.getElementById("modal-message");
+    const modalErrorIcon = document.getElementById("modal-error-icon");
+
+    if (urlParams.get('form') === 'failed') {
+      modalMessage.textContent = "There was an issue updating the quantity of your order. Please try again later.";
+      modalErrorIcon.classList.remove("hidden");
+      orderModal.classList.remove("hidden");
+    }
+
+    closeOrderModalBtn.addEventListener("click", () => {
+      orderModal.classList.add("hidden");
+    });
+  });
+
   let subtotal = 0;
 
   function toggleSelection(event, cartId, itemTotal) {
