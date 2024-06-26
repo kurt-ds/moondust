@@ -25,7 +25,7 @@
                         <form action="/cart" method='post' onclick="event.stopPropagation();" class="remove-form hidden">
                           <input type="hidden" name="_method" value="delete" />
                           <input type="hidden" name="cart_id" value="<?php echo htmlspecialchars($item["cart_id"]); ?>">
-                          <button type="submit" class="absolute right-80 top-16 text-red-500 hover:text-red-600 focus:outline-none focus:text-red-600">
+                          <button type="submit" class="absolute right-[55%] top-16 text-red-500 hover:text-red-600 focus:outline-none focus:text-red-600">
                             <svg class="w-10 h-10 fill-red-500" width="24px" height="24px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M960 160h-291.2a160 160 0 0 0-313.6 0H64a32 32 0 0 0 0 64h896a32 32 0 0 0 0-64zM512 96a96 96 0 0 1 90.24 64h-180.48A96 96 0 0 1 512 96zM844.16 290.56a32 32 0 0 0-34.88 6.72A32 32 0 0 0 800 320a32 32 0 1 0 64 0 33.6 33.6 0 0 0-9.28-22.72 32 32 0 0 0-10.56-6.72zM832 416a32 32 0 0 0-32 32v96a32 32 0 0 0 64 0v-96a32 32 0 0 0-32-32zM832 640a32 32 0 0 0-32 32v224a32 32 0 0 1-32 32H256a32 32 0 0 1-32-32V320a32 32 0 0 0-64 0v576a96 96 0 0 0 96 96h512a96 96 0 0 0 96-96v-224a32 32 0 0 0-32-32z" fill="current" /><path d="M384 768V352a32 32 0 0 0-64 0v416a32 32 0 0 0 64 0zM544 768V352a32 32 0 0 0-64 0v416a32 32 0 0 0 64 0zM704 768V352a32 32 0 0 0-64 0v416a32 32 0 0 0 64 0z" fill="current" /></svg>
                           </button>
                         </form>                      
@@ -37,7 +37,7 @@
                         <input type="hidden" name="_method" value="put" />
                         <input type="hidden" name="cart_id" value="<?php echo htmlspecialchars($item["cart_id"]); ?>">
                         <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($item["user_id"]); ?>">
-                        <div class="flex text-lg mt-4 w-[600px] flex-row items-center gap-2">
+                        <div class="flex text-lg mt-4 w-[800px] flex-row items-center gap-2">
                           <label class="mr-1" for="quantity-<?php echo $key; ?>">Quantity: </label>
                           <input class="bg-gray-100 rounded-xl px-4 w-full" type="number" id="quantity-<?php echo $key; ?>" name="cart_quantity" value="<?php echo $item['cart_quantity']; ?>" min="1" class="w-16 border-gray-300 rounded-md" oninput="showConfirmButton(this)">
                         </div>

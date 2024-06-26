@@ -2,21 +2,33 @@
   <div class="container mx-auto">
     <h2 class="text-5xl font-bold text-[#AEA089]">Popular Products</h2>
     <div class="grid grid-cols-4 mt-10 gap-4">
-      <div class="popular-products__item">
-        <img class="w-full h-full object-cover rounded-2xl" src="public/img/popular-products-1.jpg" alt="">
-      </div>
-      <div class="popular-products__item">
-        <img class="w-full h-full object-cover rounded-2xl" src="public/img/popular-products-2.jpg" alt="">
-      </div>
-      <div class="popular-products__item">
-        <img class="w-full h-full object-cover rounded-2xl" src="public/img/popular-products-3.jpg" alt="">
-      </div>
-      <div class="popular-products__item">
-        <img class="w-full h-full object-cover rounded-2xl" src="public/img/popular-products-4.jpg" alt="">
-      </div>
+      <a href="/products/1" class="popular-products__item group">
+        <div class="overflow-hidden rounded-2xl">
+          <img class="w-full h-full object-cover rounded-2xl transition-transform duration-300 ease-in-out group-hover:scale-110" src="public/img/popular-products-1.jpg" alt="">
+        </div>
+        <h2 class="text-[#AEA089] mt-4 font-bold text-2xl">Callisto Lip Paint</h2>
+      </a>
+      <a href="/products/2" class="popular-products__item group">
+        <div class="overflow-hidden rounded-2xl">
+          <img class="w-full h-full object-cover rounded-2xl transition-transform duration-300 ease-in-out group-hover:scale-110" src="public/img/popular-products-2.jpg" alt="">
+        </div>
+        <h2 class="text-[#AEA089] mt-4 font-bold text-2xl">Eclipse Mult-tint</h2>
+      </a>
+      <a href="/products/3" class="popular-products__item group">
+        <div class="overflow-hidden rounded-2xl">
+          <img class="w-full h-full object-cover rounded-2xl transition-transform duration-300 ease-in-out group-hover:scale-110" src="public/img/popular-products-3.jpg" alt="">
+        </div>
+        <h2 class="text-[#AEA089] mt-4 font-bold text-2xl">Lip Jelly Biggie</h2>
+      </a>
+      <a href="/products/5" class="popular-products__item group">
+        <div class="overflow-hidden rounded-2xl">
+          <img class="w-full h-full object-cover rounded-2xl transition-transform duration-300 ease-in-out group-hover:scale-110" src="public/img/popular-products-4.jpg" alt="">
+        </div>
+        <h2 class="text-[#AEA089] mt-4 font-bold text-2xl">Moonstone Kiss</h2>
+      </a>
     </div>
     <a
-      class="group relative flex mx-auto justify-center items-center w-max overflow-hidden rounded mt-10 text-[#AEA082] border border-[#AEA082] px-8 py-3"
+      class="group relative flex mx-auto justify-center items-center w-max overflow-hidden rounded mt-14 text-[#AEA082] border border-[#AEA082] px-8 py-3"
       href="/products"
       >
           <span class="absolute -end-full transition-all group-hover:end-4">
