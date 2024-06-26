@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $_SESSION["errors"] = $errors;
 
             $_SESSION["signup_data"] = $data;
-            var_dump($errors);
+            header('Location: /admin?form=failed');
             die();
         }
 
@@ -245,7 +245,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $_SESSION["errors"] = $errors;
 
             $_SESSION["signup_data"] = $data;
-            var_dump($errors);
+            header('Location: /admin?form=failed');
             die();
         }
 

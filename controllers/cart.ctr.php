@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $user_id = $_POST['user_id'];
     $cart = get_cart($pdo, $cart_id);
     $product = get_product_by_id($pdo, $cart['product_id']);
+    $stock_available = get_quantity_by_id($pdo, $cart['product_id']);
     $cart_total = $cart_quantity * $product['unit_price'];
 
     $data = [
@@ -68,11 +69,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       $errors["empty_input"] = "Fill in all fields!";
     }
 
+    if($cart_quantity > $stock_available['stock_available']) {
+      $errors['no_stock']  = "No stock available";
+    }
+
     if ($errors) {
       $_SESSION["errors"] = $errors;
 
       $_SESSION["signup_data"] = $data;
-      var_dump($errors);
+      header("Location: /cart?form=failed");
       die();
     }
 
@@ -128,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $_SESSION["errors"] = $errors;
 
         $_SESSION["signup_data"] = $data;
-        var_dump($errors);
+        header("Location: /cart?form=failed");
         die();
     }
 
